@@ -14,6 +14,9 @@ public class PartidaPersonalizada extends JFrame {
     AgregarVeh agregando, agregandoA;
     Seleccion[] vehSelec;
     BotonesArmas[] armSelec;
+    JButton ir, regresar, no;
+    private int seleccionV;
+    private int seleccionA;
 
     public PartidaPersonalizada(){
         agregando = new AgregarVeh();
@@ -54,17 +57,25 @@ public class PartidaPersonalizada extends JFrame {
         selec = new PanelNuevo();
         iniciarVehiculos();
         iniciarArmas();
+        iniciarBotSec();
         iniciarEtiquetas();
 
     }
     public void iniciarEtiquetas(){
         bienvenida = new JLabel("Como te llamas?");
-        sele = new JLabel("Estas seguro?");
         TitledBorder bordePanelInformacion = new TitledBorder("Antes que nada, configura tu partida, guerrero");
         bordePanelInformacion.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion.setTitlePosition(TitledBorder.TOP);
         bordePanelInformacion.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
         bordePanelInformacion.setTitleColor(yellow);
+
+        TitledBorder bordePanelInformacion3 = new TitledBorder("Listo?");
+        bordePanelInformacion3.setTitleJustification(TitledBorder.CENTER);
+        bordePanelInformacion3.setTitlePosition(TitledBorder.TOP);
+        bordePanelInformacion3.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bordePanelInformacion3.setTitleColor(yellow);
+        selec.setBorder(bordePanelInformacion3);
+
         informacion.setBorder(bordePanelInformacion);
         bienvenida.setForeground(yellow);
         bienvenida.setFont(new Font("Arcade Interlaced",Font.PLAIN,8));
@@ -87,7 +98,6 @@ public class PartidaPersonalizada extends JFrame {
         bordePanelInformacion1.setTitleColor(yellow);
         vehiculos1.setBorder(bordePanelInformacion1);
 
-        selec.add(sele)
         this.getContentPane().add(BorderLayout.NORTH, informacion);
         this.getContentPane().add(BorderLayout.CENTER, vehiculos1);
         this.getContentPane().add(BorderLayout.EAST, armas1);
@@ -98,31 +108,87 @@ public class PartidaPersonalizada extends JFrame {
         vehiculos1.setLayout(new GridLayout(2,3));
         for (int i = 0; i<agregando.getLeght(); i++)
         {
-            vehSelec[i] = new Seleccion();
+            vehSelec[i] = new Seleccion(this);
             ImageIcon imagen = new ImageIcon(agregando.buscarNodo(i).getTheImagen().getImage().getScaledInstance(80,80, Image.SCALE_REPLICATE));
             vehSelec[i].setIcon(imagen);
             vehSelec[i].setContentAreaFilled(false);
+            String nombre = agregando.buscarNodo(i).getNombre();
+            String hp = "HP: 80";
+            String pp = "ATAQUE: 30";
+            String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
+            vehSelec[i].setToolTipText(todo1);
             vehiculos1.add(vehSelec[i]);
         }
+        /*for (int i = 0; i<3; i++)
+        {
+            String nombre = agregando.buscarNodo(i).getNombre();
+            String hp = "HP: 80";
+            String pp = "ATAQUE: 30";
+            String todo2 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
+            JLabel inf1 = new JLabel(todo2);
+            inf1.setForeground(yellow);
+            vehiculos1.add(inf1);
+        }*/
 
     }
     public void iniciarArmas(){
         armSelec = new BotonesArmas[agregandoA.getLeghtA()];
         armas1.setLayout(new GridLayout(3,2));
-        for (int u = 0; u<agregandoA.getLeghtA(); u++)
+        for (int u = 0; u<agregandoA.getLeghtA()-1; u++)
         {
-            armSelec[u] = new BotonesArmas();
+            armSelec[u] = new BotonesArmas(this);
             ImageIcon imagen2 = new ImageIcon(agregandoA.buscarNodoA(u,"no").getTheImagen().getImage().getScaledInstance(80,80,Image.SCALE_REPLICATE));
             armSelec[u].setIcon(imagen2);
             armSelec[u].setContentAreaFilled(false);
+            String nombre = agregandoA.buscarNodoA(u,"no").getNombre();
+            String hp = "PRECISIÓN: 80%";
+            String pp = "ATAQUE: 30";
+            String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
+            armSelec[u].setToolTipText(todo1);
             armas1.add(armSelec[u]);
         }
     }
     public void iniciarBotSec(){
-
-
+        selec.setLayout(new GridLayout(1,3));
+        ir = new JButton("JUGAR");
+        ir.setEnabled(false);
+        regresar = new JButton("REGRESO MENU PRINCIPAL");
+        no = new JButton("NO SE QUE MAS");
+        selec.add(ir);
+        selec.add(regresar);
+        selec.add(no);
     }
     public void agregandoNombres(int correp, String nombre){
         agregando.buscarNodo(correp).setNombre(nombre);
+    }
+
+    public int getSeleccionV() {
+        return seleccionV;
+    }
+
+    public void setSeleccionV(int seleccionV) {
+        this.seleccionV += seleccionV;
+        if (getSeleccionV()==3 && getSeleccionA()==3)
+        {
+            ir.setEnabled(true);
+        } else
+        {
+            ir.setEnabled(false);
+        }
+    }
+
+    public int getSeleccionA() {
+        return seleccionA;
+    }
+
+    public void setSeleccionA(int seleccionA) {
+        this.seleccionA += seleccionA;
+        if (getSeleccionA()==3 && getSeleccionV()==3)
+        {
+            ir.setEnabled(true);
+        } else
+        {
+            ir.setEnabled(false);
+        }
     }
 }
