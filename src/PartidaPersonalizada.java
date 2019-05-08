@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.ReplicateScaleFilter;
 import java.util.Random;
 
@@ -15,8 +17,11 @@ public class PartidaPersonalizada extends JFrame {
     Seleccion[] vehSelec;
     BotonesArmas[] armSelec;
     JButton ir, regresar, no;
+    JTextField nombre;
     private int seleccionV;
     private int seleccionA;
+    private String jugador;
+    Font pant = new Font("Arcade Normal",Font.BOLD,8);
 
     public PartidaPersonalizada(){
         agregando = new AgregarVeh();
@@ -32,14 +37,14 @@ public class PartidaPersonalizada extends JFrame {
         for (int p = 0; p<6; p++)
         {
             agregandoA.insertarNodo(new Arma(), p);
-            agregandoA.buscarNodoA(p,"no").getImagen(p);
+            agregandoA.buscarNodoA(p).getImagen(p);
         }
         String[] nombres = {"METAL SLUG","STRIKER","SERVOARMOUR","FALCON","LOCKHEED MARTIN F-16","HALCON MILENARIO"};
         String[] nombresA = {"MK1 DRIVER","MK2 DRIVER","MK1 GAUSS","MK2 GAUSS","LASER GUN","SHOT GUN"};
         for (int q = 0; q<6; q++)
         {
             agregandoNombres(q,nombres[q]);
-            agregandoA.buscarNodoA(q,"no").setNombre(nombresA[q]);
+            agregandoA.buscarNodoA(q).setNombre(nombresA[q]);
         }
         setSize(700,700); //se establece el tamaño de la ventana
         setLocationRelativeTo(null);
@@ -51,10 +56,10 @@ public class PartidaPersonalizada extends JFrame {
     public void iniciarComponentes(){
         fondito = new FondoWWI(4);
         this.getContentPane().add(fondito);
-        informacion = new PanelNuevo();
-        vehiculos1 = new PanelNuevo();
-        armas1 = new PanelNuevo();
-        selec = new PanelNuevo();
+        informacion = new PanelNuevo(0);
+        vehiculos1 = new PanelNuevo(1);
+        armas1 = new PanelNuevo(2);
+        selec = new PanelNuevo(0);
         iniciarVehiculos();
         iniciarArmas();
         iniciarBotSec();
@@ -66,35 +71,38 @@ public class PartidaPersonalizada extends JFrame {
         TitledBorder bordePanelInformacion = new TitledBorder("Antes que nada, configura tu partida, guerrero");
         bordePanelInformacion.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion.setTitlePosition(TitledBorder.TOP);
-        bordePanelInformacion.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bordePanelInformacion.setTitleFont(pant);
         bordePanelInformacion.setTitleColor(yellow);
 
         TitledBorder bordePanelInformacion3 = new TitledBorder("Listo?");
         bordePanelInformacion3.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion3.setTitlePosition(TitledBorder.TOP);
-        bordePanelInformacion3.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bordePanelInformacion3.setTitleFont(pant);
         bordePanelInformacion3.setTitleColor(yellow);
         selec.setBorder(bordePanelInformacion3);
 
+        nombre = new JTextField(10);
+        nombre.setFont(pant);
+        nombre.setOpaque(false);
+        nombre.setForeground(yellow);
         informacion.setBorder(bordePanelInformacion);
         bienvenida.setForeground(yellow);
-        bienvenida.setFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bienvenida.setFont(pant);
         informacion.add(bienvenida);
-        JTextField nombre = new JTextField(10);
         informacion.add(nombre);
         informacion.setOpaque(false);
 
-        TitledBorder bordePanelInformacion2 = new TitledBorder("Elige tus armas");
+        TitledBorder bordePanelInformacion2 = new TitledBorder("Elige tus armas iniciales");
         bordePanelInformacion2.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion2.setTitlePosition(TitledBorder.CENTER);
-        bordePanelInformacion2.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bordePanelInformacion2.setTitleFont(pant);
         bordePanelInformacion2.setTitleColor(yellow);
         armas1.setBorder(bordePanelInformacion2);
 
-        TitledBorder bordePanelInformacion1 = new TitledBorder("Elige tus vehiculos");
+        TitledBorder bordePanelInformacion1 = new TitledBorder("<html><body>Elige tus vehiculos iniciales, manten el cursor<br>sobre la imagen para ver las caracteristicas</body></html>");
         bordePanelInformacion1.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion1.setTitlePosition(TitledBorder.TOP);
-        bordePanelInformacion1.setTitleFont(new Font("Arcade Interlaced",Font.PLAIN,8));
+        bordePanelInformacion1.setTitleFont(pant);
         bordePanelInformacion1.setTitleColor(yellow);
         vehiculos1.setBorder(bordePanelInformacion1);
 
@@ -109,9 +117,10 @@ public class PartidaPersonalizada extends JFrame {
         for (int i = 0; i<agregando.getLeght(); i++)
         {
             vehSelec[i] = new Seleccion(this);
-            ImageIcon imagen = new ImageIcon(agregando.buscarNodo(i).getTheImagen().getImage().getScaledInstance(80,80, Image.SCALE_REPLICATE));
+            ImageIcon imagen = new ImageIcon(agregando.buscarNodo(i).getTheImagen().getImage().getScaledInstance(100,100, Image.SCALE_REPLICATE));
             vehSelec[i].setIcon(imagen);
             vehSelec[i].setContentAreaFilled(false);
+            vehSelec[i].setNumRec(i);
             String nombre = agregando.buscarNodo(i).getNombre();
             String hp = "HP: 80";
             String pp = "ATAQUE: 30";
@@ -134,13 +143,14 @@ public class PartidaPersonalizada extends JFrame {
     public void iniciarArmas(){
         armSelec = new BotonesArmas[agregandoA.getLeghtA()];
         armas1.setLayout(new GridLayout(3,2));
-        for (int u = 0; u<agregandoA.getLeghtA()-1; u++)
+        for (int u = 0; u<agregandoA.getLeghtA(); u++)
         {
             armSelec[u] = new BotonesArmas(this);
-            ImageIcon imagen2 = new ImageIcon(agregandoA.buscarNodoA(u,"no").getTheImagen().getImage().getScaledInstance(80,80,Image.SCALE_REPLICATE));
+            ImageIcon imagen2 = new ImageIcon(agregandoA.buscarNodoA(u).getTheImagen().getImage().getScaledInstance(100,100,Image.SCALE_REPLICATE));
             armSelec[u].setIcon(imagen2);
             armSelec[u].setContentAreaFilled(false);
-            String nombre = agregandoA.buscarNodoA(u,"no").getNombre();
+            armSelec[u].setNumRec(u);
+            String nombre = agregandoA.buscarNodoA(u).getNombre();
             String hp = "PRECISIÓN: 80%";
             String pp = "ATAQUE: 30";
             String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
@@ -150,13 +160,68 @@ public class PartidaPersonalizada extends JFrame {
     }
     public void iniciarBotSec(){
         selec.setLayout(new GridLayout(1,3));
-        ir = new JButton("JUGAR");
+        ir = new JButton("CREAR PARTIDA");
         ir.setEnabled(false);
         regresar = new JButton("REGRESO MENU PRINCIPAL");
+        ir.setFont(pant);
+        regresar.setFont(pant);
+        ir.setForeground(yellow);
+        regresar.setForeground(yellow);
+        ir.setContentAreaFilled(false);
+        regresar.setContentAreaFilled(false);
         no = new JButton("NO SE QUE MAS");
         selec.add(ir);
         selec.add(regresar);
-        selec.add(no);
+        //selec.add(no);
+        regresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Inicio temp = new Inicio();
+                temp.setVisible(true);
+                setVisible(false);
+            }
+        });
+        ir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nombre.getText().length()==0){
+                    ImageIcon vault = new ImageIcon("src/fts/desacuerdo.png");
+                    JOptionPane.showMessageDialog(null,"No has puesto tu nombre","Error",JOptionPane.INFORMATION_MESSAGE,vault);
+                } else {
+                    System.out.println("¡qué de ahuevo!");
+                    setJugador(nombre.getText());
+                    System.out.println(getJugador());
+                    int[] vehSeleccionados = new int[3];
+                    int[] armSeleccionadas = new int[3];
+                    int conteo = 0;
+                    for (int i = 0; i<6; i++)
+                    {
+                        if (vehSelec[i].isSeleccionado())
+                        {
+                            vehSeleccionados[conteo] = vehSelec[i].getNumRec();
+                            agregando.buscarNodo(vehSelec[i].getNumRec()).setElegido(true);
+                            conteo++;
+                        }
+                    }
+                    conteo = 0;
+                    for (int u = 0; u<6; u++)
+                    {
+                        if (armSelec[u].isSeleccionado())
+                        {
+                            armSeleccionadas[conteo] = armSelec[u].getNumRec();
+                            agregandoA.buscarNodoA(vehSelec[u].getNumRec()).setElegido(true);
+                            conteo++;
+                        }
+                    }
+
+                    //MenuJugar tmp = new MenuJugar(agregando,agregandoA);
+
+                    CampoDeBatalla tmp = new CampoDeBatalla();
+                    tmp.setVisible(true);
+                    setVisible(false);
+                }
+            }
+        });
     }
     public void agregandoNombres(int correp, String nombre){
         agregando.buscarNodo(correp).setNombre(nombre);
@@ -190,5 +255,13 @@ public class PartidaPersonalizada extends JFrame {
         {
             ir.setEnabled(false);
         }
+    }
+
+    public String getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(String jugador) {
+        this.jugador = jugador;
     }
 }

@@ -9,9 +9,11 @@ public class NodoVeh {
     public NodoVeh(Tanque nuevo, Avion nuevo1, int numeroRec){
         if (nuevo!=null){
             this.nuevo = nuevo;
+            this.nuevo.setNumRec(numeroRec);
         }
         if (nuevo1!=null){
             this.nuevo1 = nuevo1;
+            this.nuevo1.setNumRec(numeroRec);
         }
         this.numeroRec = numeroRec;
         siguiente = null;

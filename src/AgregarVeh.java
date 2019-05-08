@@ -48,18 +48,18 @@ public class AgregarVeh {
         }
         return barrer.nuevo;
     }
-    public Arma buscarNodoA(int numRec, String num){
+    public Arma buscarNodoA(int numRec){
         NodoVeh barrer;
         barrer = raiz;
-        Arma tuCulo = new Arma();
+        Arma nulo1= new Arma();
         while(barrer!=null){
             if (barrer.getNumeroRec1()==numRec){
-                tuCulo = barrer.armita;
-                return tuCulo;
+                nulo1 = barrer.armita;
+                return nulo1;
             }
             barrer=barrer.siguiente;
         }
-        return tuCulo;
+        return nulo1;
     }
 
     public int getLeght() {

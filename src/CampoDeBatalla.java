@@ -293,7 +293,7 @@ public class CampoDeBatalla extends JFrame {
         ImageIcon enemigo1 = new ImageIcon("src/fts/enemigo5.gif");
         ImageIcon enemigo2 = new ImageIcon("src/fts/enemigo2.gif");
         ImageIcon enemigo3 = new ImageIcon("src/fts/enemigo4.gif");
-        ImageIcon montania2 = new ImageIcon("src/fts/mountain3.png");
+        ImageIcon montania2 = new ImageIcon("src/fts/arbol.png");
         ImageIcon agua1 = new ImageIcon("src/fts/aguaredimension.gif");
         for (int u = 0; u<getCuantoY();u++)
             for (int p = 0; p<getCuantoX();p++){

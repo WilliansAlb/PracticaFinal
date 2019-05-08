@@ -2,14 +2,11 @@ import javax.swing.*;
 
 public class Tanque extends Vehiculos {
     private ImageIcon theImagen;
-    private int numeroRec;
+    private int numRec;
     private boolean elegido;
     private String nombre;
     public Tanque(){
 
-    }
-    public Tanque(int numeroRec){
-        this.numeroRec = numeroRec;
     }
 
     ImageIcon getImagen(int i) {
@@ -70,5 +67,13 @@ public class Tanque extends Vehiculos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getNumRec() {
+        return numRec;
+    }
+
+    public void setNumRec(int numRec) {
+        this.numRec = numRec;
     }
 }

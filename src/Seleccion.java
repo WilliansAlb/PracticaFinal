@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 public class Seleccion extends JButton implements ActionListener {
     private boolean click;
     PartidaPersonalizada nueva;
+    private boolean seleccionado;
+    private int numRec;
 
     public Seleccion(PartidaPersonalizada nueva) {
         this.nueva = nueva;
@@ -17,17 +19,23 @@ public class Seleccion extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!isClick())
         {
-            nueva.setSeleccionV(1);
-            setClick(true);
-            setContentAreaFilled(true);
-            setBackground(Color.lightGray);
-            System.out.println(nueva.getSeleccionV());
+            if (nueva.getSeleccionV()<3){
+                nueva.setSeleccionV(1);
+                setClick(true);
+                setContentAreaFilled(true);
+                setBackground(Color.yellow);
+                System.out.println(nueva.getSeleccionV());
+                setSeleccionado(true);
+
+            }
+
         } else
         {
             nueva.setSeleccionV(-1);
             setClick(false);
             setContentAreaFilled(false);
             System.out.println(nueva.getSeleccionV());
+            setSeleccionado(false);
         }
     }
 
@@ -39,4 +47,19 @@ public class Seleccion extends JButton implements ActionListener {
         this.click = click;
     }
 
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public int getNumRec() {
+        return numRec;
+    }
+
+    public void setNumRec(int numRec) {
+        this.numRec = numRec;
+    }
 }

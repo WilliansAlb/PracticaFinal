@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Avion extends Vehiculos {
     private ImageIcon theImagen;
-    private int numeroRec;
+    private int numRec;
     private boolean elegido;
     private String nombre;
 
@@ -63,4 +63,21 @@ public class Avion extends Vehiculos {
         this.nombre = nombre;
     }
 
+    @Override
+    public boolean isElegido() {
+        return elegido;
+    }
+
+    @Override
+    public void setElegido(boolean elegido) {
+        this.elegido = elegido;
+    }
+
+    public int getNumRec() {
+        return numRec;
+    }
+
+    public void setNumRec(int numRec) {
+        this.numRec = numRec;
+    }
 }

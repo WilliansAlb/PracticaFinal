@@ -66,7 +66,7 @@ public class Inicio extends JFrame {
         jugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CampoDeBatalla campo = new CampoDeBatalla();
+                PartidaPersonalizada campo = new PartidaPersonalizada();
                 setVisible(false);
                 campo.setVisible(true);
                 /*PartidaPersonalizada partidaN = new PartidaPersonalizada();

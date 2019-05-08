@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 public class BotonesArmas extends JButton implements ActionListener {
     PartidaPersonalizada nueva2;
     private boolean click;
+    private boolean seleccionado;
+    private int numRec;
 
     public BotonesArmas(PartidaPersonalizada nueva2) {
         this.nueva2 = nueva2;
@@ -17,17 +19,21 @@ public class BotonesArmas extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!isClick())
         {
-            nueva2.setSeleccionA(1);
-            setClick(true);
-            setContentAreaFilled(true);
-            setBackground(Color.lightGray);
-            System.out.println(nueva2.getSeleccionV());
+            if (nueva2.getSeleccionA()<3){
+                nueva2.setSeleccionA(1);
+                setClick(true);
+                setContentAreaFilled(true);
+                setBackground(Color.yellow);
+                System.out.println(nueva2.getSeleccionA());
+                setSeleccionado(true);
+            }
         } else
         {
             nueva2.setSeleccionA(-1);
             setClick(false);
             setContentAreaFilled(false);
-            System.out.println(nueva2.getSeleccionV());
+            System.out.println(nueva2.getSeleccionA());
+            setSeleccionado(false);
         }
     }
 
@@ -37,5 +43,21 @@ public class BotonesArmas extends JButton implements ActionListener {
 
     public void setClick(boolean click) {
         this.click = click;
+    }
+
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+
+    public int getNumRec() {
+        return numRec;
+    }
+
+    public void setNumRec(int numRec) {
+        this.numRec = numRec;
     }
 }

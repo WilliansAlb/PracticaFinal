@@ -9,14 +9,35 @@ public class PanelNuevo extends JPanel {
 
     private Image bgImage;
 
-    public PanelNuevo() {
+    public PanelNuevo(int i) {
         this.setOpaque(false);
-        setBackgroundImage();
+        setBackgroundImage(i);
     }
 
-    public void setBackgroundImage() {
-        ImageIcon nuevaImagen = new ImageIcon("src/fts/fondo1.png");
-        this.bgImage = nuevaImagen.getImage();
+    public void setBackgroundImage(int i) {
+        switch (i){
+            case 0:
+                {
+                    ImageIcon nuevaImagen = new ImageIcon("src/fts/fondo1.png");
+                    this.bgImage = nuevaImagen.getImage();
+                    break;
+                }
+            case 1:
+            {
+                ImageIcon nuevaImagen = new ImageIcon("src/fts/panel1.png");
+                this.bgImage = nuevaImagen.getImage();
+                break;
+            }
+            case 2:
+            {
+                ImageIcon nuevaImagen = new ImageIcon("src/fts/panel2.png");
+                this.bgImage = nuevaImagen.getImage();
+                break;
+            }
+            default:
+                System.out.println("Hubo un error");
+        }
+
     }
 
     /**
