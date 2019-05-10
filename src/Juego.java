@@ -5,5 +5,7 @@ public class Juego {
         nuevo.setVisible(true);
         //PartidaPersonalizada nueva = new PartidaPersonalizada();
         //nueva.setVisible(true);
+        //CampoDeBatalla campo = new CampoDeBatalla();
+        //campo.setVisible(true);
     }
 }

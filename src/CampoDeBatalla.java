@@ -34,7 +34,7 @@ public class CampoDeBatalla extends JFrame {
     /**
      * Botones para mover, disparar, tirar dados, seleccionar otro auto, anterior o siguiente
      */
-    JButton mover, disparar, dados, sig, ant;
+    JButton mover, disparar, dados, sig, ant, u, d, l, r;
     /**
      * Matriz para crear el tablero de juego
      */
@@ -118,6 +118,60 @@ public class CampoDeBatalla extends JFrame {
         dados.setEnabled(false);
         fondito.add(dados);
 
+        u = new JButton();
+        u.setBounds(640,598,20,20);
+        u.setContentAreaFilled(false);
+        u.setBorderPainted(false);
+        fondito.add(u);
+        l = new JButton();
+        l.setBounds(616,620,33,12);
+        l.setContentAreaFilled(false);
+        l.setBorderPainted(false);
+        fondito.add(l);
+        r = new JButton();
+        r.setBounds(650,621,33,12);
+        r.setContentAreaFilled(false);
+        r.setBorderPainted(false);
+        fondito.add(r);
+        d = new JButton();
+        d.setBounds(617,633,67,25);
+        d.setContentAreaFilled(false);
+        d.setBorderPainted(false);
+        fondito.add(d);
+        u.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarAciones("Elegiste hacia arriba");
+                mostrarAciones("Pulsa dice para lanzar dados");
+            }
+        });
+
+        l.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarAciones("Elegiste hacia la izquierda");
+                mostrarAciones("Pulsa dice para lanzar dados");
+            }
+        });
+
+        r.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarAciones("Elegiste hacia la derecha");
+                mostrarAciones("Pulsa dice para lanzar dados");
+            }
+        });
+
+        d.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarAciones("Elegiste hacia abajo");
+                mostrarAciones("Pulsa dice para lanzar dados");
+            }
+        });
+
+        JLabel escot = new JLabel();
+        escot.setBounds(617,598,68,68);
         mover.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,6 +193,10 @@ public class CampoDeBatalla extends JFrame {
                 mostrarAciones("¿Hacia donde te moveras?");
                 quitarMarcas();
                 pintarCaminos(false);
+                if (escot.getIcon()==null){
+                    ImageIcon escotilla = new ImageIcon("src/fts/escotilla.gif");
+                    escot.setIcon(new ImageIcon(escotilla.getImage().getScaledInstance(68,68,Image.SCALE_REPLICATE)));
+                }
             }
         });
         disparar.addActionListener(new ActionListener() {
@@ -158,13 +216,18 @@ public class CampoDeBatalla extends JFrame {
                 if (getContador()>7){
                     getDtm().removeRow(0);
                 }*/
+
                 mostrarAciones("Seleccionaste disparar");
                 mostrarAciones("¿Hacia donde dispararás?");
                 quitarMarcas();
                 pintarCaminos(true);
-
+                if (escot.getIcon()==null){
+                    ImageIcon escotilla = new ImageIcon("src/fts/escotilla.gif");
+                    escot.setIcon(new ImageIcon(escotilla.getImage().getScaledInstance(68,68,Image.SCALE_REPLICATE)));
+                }
             }
         });
+        fondito.add(escot);
         dados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -323,7 +386,7 @@ public class CampoDeBatalla extends JFrame {
                 intentos++;
             }
         }
-        modalidad = false;
+        modalidad = true;
         if (modalidad==true){
             intentos = 0;
             while (intentos<enemigos) {
@@ -569,7 +632,6 @@ public class CampoDeBatalla extends JFrame {
             for (int u = 0; u<cuantoX; u++)
             {
                 if (getPosicionx()==u && getPosiciony()==i){
-                    System.out.println("No hacer nada compa");
                 } else {
                     escenario1[i][u].setContentAreaFilled(false);
                 }

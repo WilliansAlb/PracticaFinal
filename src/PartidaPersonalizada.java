@@ -54,7 +54,7 @@ public class PartidaPersonalizada extends JFrame {
         iniciarComponentes();
     }
     public void iniciarComponentes(){
-        fondito = new FondoWWI(4);
+        fondito = new FondoWWI(7);
         this.getContentPane().add(fondito);
         informacion = new PanelNuevo(0);
         vehiculos1 = new PanelNuevo(1);
@@ -99,7 +99,7 @@ public class PartidaPersonalizada extends JFrame {
         bordePanelInformacion2.setTitleColor(yellow);
         armas1.setBorder(bordePanelInformacion2);
 
-        TitledBorder bordePanelInformacion1 = new TitledBorder("<html><body>Elige tus vehiculos iniciales, manten el cursor<br>sobre la imagen para ver las caracteristicas</body></html>");
+        TitledBorder bordePanelInformacion1 = new TitledBorder("<html><body>Elige tus vehiculos iniciales, mantente<br>sobre la imagen para ver las caracteristicas</body></html>");
         bordePanelInformacion1.setTitleJustification(TitledBorder.CENTER);
         bordePanelInformacion1.setTitlePosition(TitledBorder.TOP);
         bordePanelInformacion1.setTitleFont(pant);
@@ -213,10 +213,13 @@ public class PartidaPersonalizada extends JFrame {
                             conteo++;
                         }
                     }
+                    Jugador jugando = new Jugador();
+                    jugando.setArmas(agregandoA);
+                    jugando.setVehiculo(agregando);
+                    jugando.setNombre(nombre.getText());
+                    MenuJugar tmp = new MenuJugar(jugando);
 
-                    //MenuJugar tmp = new MenuJugar(agregando,agregandoA);
-
-                    CampoDeBatalla tmp = new CampoDeBatalla();
+                    //CampoDeBatalla tmp = new CampoDeBatalla();
                     tmp.setVisible(true);
                     setVisible(false);
                 }

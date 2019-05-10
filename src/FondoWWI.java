@@ -12,13 +12,15 @@ public class FondoWWI extends JPanel {
         switch (i){
             case 1:
             {
+
                 ImageIcon imagen = new ImageIcon("src/fts/war5.png");
                 fondo = imagen.getImage();
                 break;
             }
             case 2:
             {
-                ImageIcon imagen = new ImageIcon("src/fts/fallout11.jpg");
+                ImageIcon imagen = new ImageIcon("src/fts/fallout12.png");
+                //ImageIcon imagen = new ImageIcon("src/fts/mover1.gif");
                 fondo = imagen.getImage();
                 break;
             }
@@ -29,6 +31,12 @@ public class FondoWWI extends JPanel {
                 break;
             }
             case 4:
+            {
+                ImageIcon imagen = new ImageIcon("src/fts/menu3.gif");
+                fondo = imagen.getImage();
+                break;
+            }
+            default:
             {
                 fondo = null;
                 break;
