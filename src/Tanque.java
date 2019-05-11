@@ -2,13 +2,12 @@ import javax.swing.*;
 
 public class Tanque extends Vehiculos {
     private ImageIcon theImagen;
-    private int numRec;
-    private boolean elegido;
+    private int numRec, hp, atack;
+    private boolean elegido, selec;
     private String nombre;
     public Tanque(){
 
     }
-
     ImageIcon getImagen(int i) {
         switch (i){
             case 0:
@@ -75,5 +74,34 @@ public class Tanque extends Vehiculos {
 
     public void setNumRec(int numRec) {
         this.numRec = numRec;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getAtack() {
+        return atack;
+    }
+
+    public void setAtack(int atack) {
+        this.atack = atack;
+    }
+
+    public boolean isSelec() {
+        return selec;
+    }
+
+    public void setSelec(boolean selec) {
+        this.selec = selec;
+    }
+
+    @Override
+    String getTipo() {
+        return "T";
     }
 }

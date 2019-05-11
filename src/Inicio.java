@@ -74,6 +74,14 @@ public class Inicio extends JFrame {
                 setVisible(false);*/
             }
         });
+        puntajePartidas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MenuJugar jugar = new MenuJugar(new Jugador());
+                jugar.setVisible(true);
+                setVisible(false);
+            }
+        });
 
         salir.addActionListener(new ActionListener() {
             @Override

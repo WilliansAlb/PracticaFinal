@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static java.awt.Color.red;
 import static java.awt.Color.yellow;
@@ -7,6 +9,7 @@ import static java.awt.Color.yellow;
 public class MenuJugar extends JFrame {
     FondoWWI fondito;
     Jugador jugando;
+    JButton jugar, tienda, garage, creacion, menuP;
     Font arcade = new Font("Arcade Interlaced",Font.PLAIN,10);
 
     public MenuJugar(Jugador jugando){
@@ -17,18 +20,7 @@ public class MenuJugar extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         iniciarComponentes();
-        for (int i = 0; i < this.jugando.getVehiculo().getLeght(); i++)
-        {
-            if (this.jugando.getVehiculo().buscarNodo(i).isElegido()){
-                System.out.println(this.jugando.getVehiculo().buscarNodo(i).getNombre());
-            }
-        }
-        for (int i = 0; i < this.jugando.getArmas().getLeghtA(); i++)
-        {
-            if (this.jugando.getArmas().buscarNodoA(i).isElegido()){
-                System.out.println(this.jugando.getArmas().buscarNodoA(i).getNombre());
-            }
-        }
+        iniciarBotones();
     }
     public void iniciarComponentes(){
         fondito = new FondoWWI(4);
@@ -39,5 +31,40 @@ public class MenuJugar extends JFrame {
         bienvenida.setBounds(295,80,150,150);
         bienvenida.setForeground(red);
         fondito.add(bienvenida);
+    }
+    public void iniciarBotones(){
+        jugar = new JButton();
+        tienda = new JButton();
+        creacion = new JButton();
+        garage = new JButton();
+        menuP = new JButton();
+
+        configurarBotonesM(jugar,330);
+        configurarBotonesM(tienda,368);
+        configurarBotonesM(creacion,406);
+        configurarBotonesM(garage,444);
+        configurarBotonesM(menuP,482);
+
+        jugar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Modalidad modo = new Modalidad(getJugando());
+                modo.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+    }
+
+    public void configurarBotonesM(JButton boton1, int y){
+        boton1.setBounds(264,y,25,25);
+        boton1.setOpaque(false);
+        boton1.setContentAreaFilled(false);
+        boton1.setBorderPainted(false);
+        fondito.add(boton1);
+    }
+
+    public Jugador getJugando() {
+        return jugando;
     }
 }

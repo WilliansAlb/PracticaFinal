@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class Seleccion extends JButton implements ActionListener {
     private boolean click;
     PartidaPersonalizada nueva;
+    Modalidad nuevo;
     private boolean seleccionado;
     private int numRec;
 
@@ -14,29 +15,52 @@ public class Seleccion extends JButton implements ActionListener {
         click = false;
         addActionListener(this::actionPerformed);
     }
-
+    public Seleccion(Modalidad nuevo)
+    {
+        this.nuevo = nuevo;
+        click = false;
+        addActionListener(this::actionPerformed);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!isClick())
-        {
-            if (nueva.getSeleccionV()<3){
-                nueva.setSeleccionV(1);
-                setClick(true);
-                setContentAreaFilled(true);
-                setBackground(Color.yellow);
-                System.out.println(nueva.getSeleccionV());
-                setSeleccionado(true);
+        if (nueva != null){
+            if (!isClick())
+            {
+                if (nueva.getSeleccionV()<3){
+                    nueva.setSeleccionV(1);
+                    setClick(true);
+                    setContentAreaFilled(true);
+                    setBackground(Color.yellow);
+                    setSeleccionado(true);
+                }
 
+            } else
+            {
+                nueva.setSeleccionV(-1);
+                setClick(false);
+                setContentAreaFilled(false);
+                setSeleccionado(false);
             }
+        } else {
+            if (!isClick())
+            {
+                if (nuevo.getSeleccionV()<3){
+                    nuevo.setSeleccionV(1);
+                    setClick(true);
+                    setContentAreaFilled(true);
+                    setBackground(Color.yellow);
+                    setSeleccionado(true);
+                }
 
-        } else
-        {
-            nueva.setSeleccionV(-1);
-            setClick(false);
-            setContentAreaFilled(false);
-            System.out.println(nueva.getSeleccionV());
-            setSeleccionado(false);
+            } else
+            {
+                nuevo.setSeleccionV(-1);
+                setClick(false);
+                setContentAreaFilled(false);
+                setSeleccionado(false);
+            }
         }
+
     }
 
     public boolean isClick() {

@@ -3,7 +3,8 @@ import javax.swing.*;
 public class Arma {
     private ImageIcon theImagen;
     private String nombre;
-    private boolean elegido;
+    private boolean elegido, selec;
+    private int ataque, precision;
 
     public Arma() {
     }
@@ -68,7 +69,32 @@ public class Arma {
     public void setElegido(boolean elegido){
         this.elegido = elegido;
     }
+
     public boolean isElegido(){
         return elegido;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public void setAtaque(int ataque) {
+        this.ataque = ataque;
+    }
+
+    public int getPrecision() {
+        return precision;
+    }
+
+    public void setPrecision(int precision) {
+        this.precision = precision;
+    }
+
+    public boolean isSelec() {
+        return selec;
+    }
+
+    public void setSelec(boolean selec) {
+        this.selec = selec;
     }
 }

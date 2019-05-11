@@ -96,8 +96,22 @@ public abstract class Casilla extends JButton implements ActionListener {
 
     }
 
-    public Vehiculos getAvion() {
-        return avion;
+    public Vehiculos getVehiculo() {
+        if(avion!=null){
+            return avion;
+        } else {
+            return tanque;
+        }
+    }
+    public void setVehiculo(Vehiculos veh){
+        if (veh.getTipo().equalsIgnoreCase("A"))
+        {
+            avion = veh;
+        } else
+        {
+            tanque = veh;
+        }
+
     }
 
     public void setAvion(Vehiculos avion) {
@@ -111,6 +125,7 @@ public abstract class Casilla extends JButton implements ActionListener {
     public Objetos getAgua() {
         return agua;
     }
+
     public Vehiculos getTanque() {
         return tanque;
     }

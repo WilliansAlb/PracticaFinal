@@ -13,4 +13,11 @@ public abstract class Vehiculos extends Casilla {
     abstract void setElegido(boolean elegido);
     abstract int getNumRec();
     abstract void setNumRec(int numRec);
+    abstract void setHp(int hp);
+    abstract void setAtack(int atack);
+    abstract int getHp();
+    abstract int getAtack();
+    abstract boolean isSelec();
+    abstract void setSelec(boolean selec);
+    abstract String getTipo();
 }

@@ -11,7 +11,7 @@ import static java.awt.Color.yellow;
 public class PartidaPersonalizada extends JFrame {
 
     FondoWWI fondito;
-    JLabel bienvenida, vehiculos, armas, sele;
+    JLabel bienvenida;
     PanelNuevo informacion, vehiculos1, armas1, selec;
     AgregarVeh agregando, agregandoA;
     Seleccion[] vehSelec;
@@ -24,34 +24,51 @@ public class PartidaPersonalizada extends JFrame {
     Font pant = new Font("Arcade Normal",Font.BOLD,8);
 
     public PartidaPersonalizada(){
-        agregando = new AgregarVeh();
-        agregandoA = new AgregarVeh();
-        for (int i = 0; i<3; i++){
-            agregando.insertarNodo(new Tanque(), null,i);
-            agregando.buscarNodo(i).getImagen(i);
-        }
-        for (int u = 3; u<6; u++){
-            agregando.insertarNodo(null, new Avion(), u);
-            agregando.buscarNodo(u).getImagen(u-3);
-        }
-        for (int p = 0; p<6; p++)
-        {
-            agregandoA.insertarNodo(new Arma(), p);
-            agregandoA.buscarNodoA(p).getImagen(p);
-        }
-        String[] nombres = {"METAL SLUG","STRIKER","SERVOARMOUR","FALCON","LOCKHEED MARTIN F-16","HALCON MILENARIO"};
-        String[] nombresA = {"MK1 DRIVER","MK2 DRIVER","MK1 GAUSS","MK2 GAUSS","LASER GUN","SHOT GUN"};
-        for (int q = 0; q<6; q++)
-        {
-            agregandoNombres(q,nombres[q]);
-            agregandoA.buscarNodoA(q).setNombre(nombresA[q]);
-        }
         setSize(700,700); //se establece el tamaño de la ventana
         setLocationRelativeTo(null);
         setTitle("WWI"); // le coloca titulo a la ventana
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        inicioA();
         iniciarComponentes();
+    }
+    public void inicioA(){
+        agregando = new AgregarVeh();
+        agregandoA = new AgregarVeh();
+
+        String[] nombres = {"METAL SLUG","STRIKER","SERVOARMOUR","FALCON","LOCKHEED MARTIN F-16","HALCON MILENARIO"};
+        String[] nombresA = {"MK1 DRIVER","MK2 DRIVER","MK1 GAUSS","MK2 GAUSS","LASER GUN","SHOT GUN"};
+
+        int[] ataques = {10,20,15,18,17,12};
+        int[] precisiones = {20,10,18,12,17,15};
+
+        int[] ataquesV = {30,24,25,15,35,20};
+        int[] hp = {70,80,78,90,65,95};
+
+        for (int i = 0; i<3; i++){
+            agregando.insertarNodo(new Tanque(), null,i);
+            agregando.buscarNodo(i).getImagen(i);
+            agregando.buscarNodo(i).setHp(hp[i]);
+            agregando.buscarNodo(i).setAtack(ataquesV[i]);
+        }
+        for (int u = 3; u<6; u++){
+            agregando.insertarNodo(null, new Avion(), u);
+            agregando.buscarNodo(u).getImagen(u-3);
+            agregando.buscarNodo(u).setHp(hp[u]);
+            agregando.buscarNodo(u).setAtack(ataquesV[u]);
+        }
+        for (int p = 0; p<6; p++)
+        {
+            agregandoA.insertarNodo(new Arma(), p);
+            agregandoA.buscarNodoA(p).getImagen(p);
+
+            agregandoNombres(p,nombres[p]);
+            agregandoA.buscarNodoA(p).setNombre(nombresA[p]);
+
+            agregandoA.buscarNodoA(p).setAtaque(ataques[p]);
+            agregandoA.buscarNodoA(p).setPrecision(precisiones[p]);
+
+        }
     }
     public void iniciarComponentes(){
         fondito = new FondoWWI(7);
@@ -122,23 +139,12 @@ public class PartidaPersonalizada extends JFrame {
             vehSelec[i].setContentAreaFilled(false);
             vehSelec[i].setNumRec(i);
             String nombre = agregando.buscarNodo(i).getNombre();
-            String hp = "HP: 80";
-            String pp = "ATAQUE: 30";
+            String hp = "HP: "+agregando.buscarNodo(i).getHp();
+            String pp = "ATAQUE: "+agregando.buscarNodo(i).getAtack();
             String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
             vehSelec[i].setToolTipText(todo1);
             vehiculos1.add(vehSelec[i]);
         }
-        /*for (int i = 0; i<3; i++)
-        {
-            String nombre = agregando.buscarNodo(i).getNombre();
-            String hp = "HP: 80";
-            String pp = "ATAQUE: 30";
-            String todo2 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
-            JLabel inf1 = new JLabel(todo2);
-            inf1.setForeground(yellow);
-            vehiculos1.add(inf1);
-        }*/
-
     }
     public void iniciarArmas(){
         armSelec = new BotonesArmas[agregandoA.getLeghtA()];
@@ -151,8 +157,8 @@ public class PartidaPersonalizada extends JFrame {
             armSelec[u].setContentAreaFilled(false);
             armSelec[u].setNumRec(u);
             String nombre = agregandoA.buscarNodoA(u).getNombre();
-            String hp = "PRECISIÓN: 80%";
-            String pp = "ATAQUE: 30";
+            String hp = "PRECISIÓN: "+agregandoA.buscarNodoA(u).getPrecision()+"%";
+            String pp = "ATAQUE: "+agregandoA.buscarNodoA(u).getAtaque();
             String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
             armSelec[u].setToolTipText(todo1);
             armas1.add(armSelec[u]);
@@ -170,9 +176,10 @@ public class PartidaPersonalizada extends JFrame {
         ir.setContentAreaFilled(false);
         regresar.setContentAreaFilled(false);
         no = new JButton("NO SE QUE MAS");
+
         selec.add(ir);
         selec.add(regresar);
-        //selec.add(no);
+
         regresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,44 +195,36 @@ public class PartidaPersonalizada extends JFrame {
                     ImageIcon vault = new ImageIcon("src/fts/desacuerdo.png");
                     JOptionPane.showMessageDialog(null,"No has puesto tu nombre","Error",JOptionPane.INFORMATION_MESSAGE,vault);
                 } else {
-                    System.out.println("¡qué de ahuevo!");
+
+                    for (int i = 0; i <agregando.getLeght();i++)
+                    {
+                        if (vehSelec[i].isClick())
+                        {
+                            agregando.buscarNodo(i).setElegido(true);
+                        }
+                    }
+                    for (int u = 0; u < agregandoA.getLeghtA(); u++)
+                    {
+                        if (armSelec[u].isClick())
+                        {
+                            agregandoA.buscarNodoA(u).setElegido(true);
+                        }
+                    }
                     setJugador(nombre.getText());
-                    System.out.println(getJugador());
-                    int[] vehSeleccionados = new int[3];
-                    int[] armSeleccionadas = new int[3];
-                    int conteo = 0;
-                    for (int i = 0; i<6; i++)
-                    {
-                        if (vehSelec[i].isSeleccionado())
-                        {
-                            vehSeleccionados[conteo] = vehSelec[i].getNumRec();
-                            agregando.buscarNodo(vehSelec[i].getNumRec()).setElegido(true);
-                            conteo++;
-                        }
-                    }
-                    conteo = 0;
-                    for (int u = 0; u<6; u++)
-                    {
-                        if (armSelec[u].isSeleccionado())
-                        {
-                            armSeleccionadas[conteo] = armSelec[u].getNumRec();
-                            agregandoA.buscarNodoA(vehSelec[u].getNumRec()).setElegido(true);
-                            conteo++;
-                        }
-                    }
+
                     Jugador jugando = new Jugador();
                     jugando.setArmas(agregandoA);
                     jugando.setVehiculo(agregando);
                     jugando.setNombre(nombre.getText());
-                    MenuJugar tmp = new MenuJugar(jugando);
 
-                    //CampoDeBatalla tmp = new CampoDeBatalla();
+                    MenuJugar tmp = new MenuJugar(jugando);
                     tmp.setVisible(true);
                     setVisible(false);
                 }
             }
         });
     }
+
     public void agregandoNombres(int correp, String nombre){
         agregando.buscarNodo(correp).setNombre(nombre);
     }
