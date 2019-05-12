@@ -111,7 +111,7 @@ public class PartidaPersonalizada extends JFrame {
 
         TitledBorder bordePanelInformacion2 = new TitledBorder("Elige tus armas iniciales");
         bordePanelInformacion2.setTitleJustification(TitledBorder.CENTER);
-        bordePanelInformacion2.setTitlePosition(TitledBorder.CENTER);
+        bordePanelInformacion2.setTitlePosition(TitledBorder.TOP);
         bordePanelInformacion2.setTitleFont(pant);
         bordePanelInformacion2.setTitleColor(yellow);
         armas1.setBorder(bordePanelInformacion2);

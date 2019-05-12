@@ -16,4 +16,9 @@ public class Agua extends Objetos {
     public void setPrueba(int prueba) {
         this.prueba += prueba;
     }
+
+    @Override
+    ImageIcon getTheImagen() {
+        return new ImageIcon("src/fts/aguaredimension.gif");
+    }
 }

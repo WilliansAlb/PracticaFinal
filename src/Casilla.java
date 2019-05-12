@@ -36,11 +36,6 @@ public abstract class Casilla extends JButton implements ActionListener {
         addActionListener(this::actionPerformed);
         setBorderPainted(false);
         this.queSera = 3;
-        //ImageIcon tierra = new ImageIcon("src/fts/tierra.jpg");
-        //ImageIcon tierra1 = new ImageIcon(tierra.getImage().getScaledInstance((alto-5),(alto-5),Image.SCALE_REPLICATE));
-        //setIcon(tierra1);
-        //this.setContentAreaFilled(false);
-        //this.setBorderPainted(false);
     }
     public Casilla(){
 
@@ -48,11 +43,6 @@ public abstract class Casilla extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*if (getQueSera()>2 && campo.isClick()){
-            ImageIcon tanque = new ImageIcon("src/fts/tanquesuelo5.gif");
-            setIcon(new ImageIcon(tanque.getImage().getScaledInstance(getAlto(),getAlto(),Image.SCALE_REPLICATE)));
-            campo.setClick(false);
-        }*/
     }
 
     public int getQueSera() {
@@ -74,13 +64,21 @@ public abstract class Casilla extends JButton implements ActionListener {
     public void setTieneAlgo(int tieneAlgo) {
         this.tieneAlgo = tieneAlgo;
     }
-    public void inicializarAgua(){
-        this.agua = new Agua();
-        ImageIcon agua1 = new ImageIcon("src/fts/aguaredimension.gif");
-        ImageIcon agua = new ImageIcon(agua1.getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
-        setIcon(agua);
-        setTieneAlgo(1);
-        setQueSera(1);
+
+    public void inicializarObjetos(int u){
+        if (u==1){
+            this.agua = new Agua();
+            ImageIcon agua1 = new ImageIcon(agua.getTheImagen().getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
+            setIcon(agua1);
+            setTieneAlgo(1);
+            setQueSera(1);
+        } else {
+            this.montania = new Montania();
+            ImageIcon montania1 = new ImageIcon(montania.getTheImagen().getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
+            setIcon(montania1);
+            setTieneAlgo(1);
+            setQueSera(2);
+        }
     }
     public void inicializarTanque(){
         this.tanque = new Tanque();
@@ -93,8 +91,14 @@ public abstract class Casilla extends JButton implements ActionListener {
         ImageIcon avion1 = new ImageIcon("src/fts/aviongif1.gif");
         ImageIcon avion = new ImageIcon(avion1.getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
         setIcon(avion);
-
     }
+    public void iniciarEnemigo(){
+        this.enemigos = new Enemigos();
+        setIcon(new ImageIcon(this.enemigos.getImagen(0).getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE)));
+        setTieneAlgo(1);
+        setQueSera(3);
+    }
+
 
     public Vehiculos getVehiculo() {
         if(avion!=null){
@@ -104,6 +108,8 @@ public abstract class Casilla extends JButton implements ActionListener {
         }
     }
     public void setVehiculo(Vehiculos veh){
+        avion = null;
+        tanque = null;
         if (veh.getTipo().equalsIgnoreCase("A"))
         {
             avion = veh;
@@ -128,5 +134,24 @@ public abstract class Casilla extends JButton implements ActionListener {
 
     public Vehiculos getTanque() {
         return tanque;
+    }
+
+    public void eliminarLoQueTenga()
+    {
+        ImageIcon tierra = new ImageIcon("src/fts/tierra.jpg");
+        ImageIcon tierra1 = new ImageIcon(tierra.getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
+
+        if (enemigos!=null)
+        {
+            enemigos = null;
+            setIcon(tierra1);
+            setTieneAlgo(0);
+            setQueSera(0);
+        } else {
+            montania = null;
+            setIcon(tierra1);
+            setTieneAlgo(0);
+            setQueSera(0);
+        }
     }
 }

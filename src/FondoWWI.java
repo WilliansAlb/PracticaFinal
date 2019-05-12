@@ -19,7 +19,7 @@ public class FondoWWI extends JPanel {
             }
             case 2:
             {
-                ImageIcon imagen = new ImageIcon("src/fts/fallout12.png");
+                ImageIcon imagen = new ImageIcon("src/fts/fallout14.png");
                 //ImageIcon imagen = new ImageIcon("src/fts/mover1.gif");
                 fondo = imagen.getImage();
                 break;

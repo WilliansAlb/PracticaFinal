@@ -14,7 +14,7 @@ import static java.awt.Color.*;
  */
 public class CampoDeBatalla extends JFrame {
 
-    private boolean click = true;
+    private boolean disparo;
     /**
      * Variables para guardar la posición del Jugador 1
      */
@@ -26,7 +26,7 @@ public class CampoDeBatalla extends JFrame {
     /**
      * Variables para modificar el tamaño del tablero de juego, y para contar cuantos mensajes se muestran en la pantalla
      */
-    private int cuantoX, cuantoY, contador, escenario, ancho;
+    private int cuantoX, cuantoY, contador, escenario, ancho, direc;
     /**
      * Referencia, para colocarle un fondo al JFrame
      */
@@ -47,6 +47,12 @@ public class CampoDeBatalla extends JFrame {
     Jugador jugador;
 
     Vehiculos[] seleccionados;
+
+    Arma[] seleccionadas;
+
+    JLabel vehS, hp;
+
+    Jugar jugaremos;
     /**
      * Metodo constructor, inicia y posiciona el JFrame, así como manda a llamar el metodo iniciarComponentes()
      */
@@ -57,19 +63,29 @@ public class CampoDeBatalla extends JFrame {
         setLocationRelativeTo(null);
         setTitle("WWI"); // le coloca titulo a la ventana
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
         iniciarJugador();
         iniciarComponentes();
-        setResizable(false);
+
     }
 
     public void iniciarJugador(){
         int conteo = 0;
         seleccionados = new Vehiculos[3];
+        seleccionadas = new Arma[3];
         for (int i = 0; i < jugador.getVehiculo().getLeght(); i++)
         {
             if (jugador.getVehiculo().buscarNodo(i).isSelec()){
                 seleccionados[conteo] = jugador.getVehiculo().buscarNodo(i);
-                System.out.println(jugador.getVehiculo().buscarNodo(i).getNombre());
+                conteo++;
+            }
+        }
+        conteo = 0;
+        for (int u = 0; u < jugador.getArmas().getLeghtA(); u++)
+        {
+            if (jugador.getArmas().buscarNodoA(u).isSelec())
+            {
+                seleccionadas[conteo] = jugador.getArmas().buscarNodoA(u);
                 conteo++;
             }
         }
@@ -83,7 +99,7 @@ public class CampoDeBatalla extends JFrame {
         iniciarRPG();
         iniciarBotones();
         iniciarEscenarios();
-
+        jugaremos = new Jugar(seleccionados,seleccionadas,this);
     }
     /**
      * Metodo que inicializa el JTable encargado de mostrarle sus acciones al jugador
@@ -103,12 +119,12 @@ public class CampoDeBatalla extends JFrame {
         tabla.setShowGrid(false);
         tabla.setShowHorizontalLines(false);
         tabla.setShowVerticalLines(false);
-        tabla.setRowHeight(11);
+        tabla.setRowHeight(10);
 
         ((DefaultTableCellRenderer) tabla.getDefaultRenderer(Object.class)).setOpaque(false);
         ((DefaultTableCellRenderer) tabla.getDefaultRenderer(Object.class)).setSize(73,5);
-        tabla.setFont(new Font("Lucida Fax", Font.PLAIN, 10));
-        tabla.setForeground(yellow);
+        tabla.setFont(new Font("Lucida Fax", Font.PLAIN, 9));
+        tabla.setForeground(lightGray);
         fondito.add(tabla);
     }
 
@@ -116,7 +132,7 @@ public class CampoDeBatalla extends JFrame {
      * Metodo que inicializa y personaliza los botones
      */
     public void iniciarBotones(){
-        JLabel hp = new JLabel();
+        hp = new JLabel();
         JLabel pp = new JLabel();
 
         hp.setBounds(515,601,30,10);
@@ -151,7 +167,8 @@ public class CampoDeBatalla extends JFrame {
         fondito.add(dados);
 
         ant = new JButton();
-        ant.setBounds(295,610,20,20);
+        //ant.setBounds(295,610,20,20);
+        ant.setBounds(308,610,20,20);
         ant.setContentAreaFilled(false);
         ant.setOpaque(false);
         fondito.add(ant);
@@ -182,37 +199,47 @@ public class CampoDeBatalla extends JFrame {
         d.setContentAreaFilled(false);
         d.setBorderPainted(false);
         fondito.add(d);
+
         u.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarAciones("Elegiste hacia arriba");
                 mostrarAciones("Pulsa dice para lanzar dados");
+                setDirec(0);
             }
         });
-
         l.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarAciones("Elegiste hacia la izquierda");
                 mostrarAciones("Pulsa dice para lanzar dados");
+                setDirec(1);
             }
         });
-
         r.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarAciones("Elegiste hacia la derecha");
                 mostrarAciones("Pulsa dice para lanzar dados");
+                setDirec(2);
             }
         });
-
         d.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarAciones("Elegiste hacia abajo");
                 mostrarAciones("Pulsa dice para lanzar dados");
+                setDirec(3);
             }
         });
+
+        vehS = new JLabel();
+        vehS.setBounds(360,590,60,60);
+        ImageIcon ima = new ImageIcon(seleccionados[0].getTheImagen().getImage().getScaledInstance(60,60,Image.SCALE_REPLICATE));
+        vehS.setIcon(ima);
+        String lo = "<html><body>"+seleccionados[0].getNombre()+"</body></html>";
+        vehS.setToolTipText(lo);
+        fondito.add(vehS);
 
         JLabel escot = new JLabel();
         escot.setBounds(617,598,68,68);
@@ -227,9 +254,8 @@ public class CampoDeBatalla extends JFrame {
                 dados.setEnabled(true);
                 disparar.setEnabled(true);
                 disparar.setContentAreaFilled(false);
-
-                mostrarAciones("Seleccionaste moverte");
-                mostrarAciones("¿Hacia donde te moveras?");
+                setDisparo(false);
+                mostrarAciones("Elegiste moverte, pero ¿hacia donde?");
                 quitarMarcas();
                 pintarCaminos(false);
                 if (escot.getIcon()==null){
@@ -249,9 +275,8 @@ public class CampoDeBatalla extends JFrame {
                 dados.setEnabled(true);
                 mover.setEnabled(true);
                 mover.setContentAreaFilled(false);
-
-                mostrarAciones("Seleccionaste disparar");
-                mostrarAciones("¿Hacia donde dispararás?");
+                setDisparo(true);
+                mostrarAciones("Elegiste disparar, pero ¿hacia donde?");
                 quitarMarcas();
                 pintarCaminos(true);
                 if (escot.getIcon()==null){
@@ -265,9 +290,59 @@ public class CampoDeBatalla extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Random alea = new Random(System.nanoTime());
-                int alea1 = alea.nextInt(6)+1;
-
-                mostrarAciones("Dada tu suerte, te tocó "+alea1+".");
+                if (isDisparo()){
+                    if (alea.nextInt(101)<70){
+                        switch (getDirec())
+                        {
+                            case 0:
+                            {
+                                jugaremos.dispararA(getPosiciony(), getPosicionx(),1);
+                                break;
+                            }
+                            case 1:
+                            {
+                                jugaremos.dispararL(getPosiciony(), getPosicionx(),1);
+                                break;
+                            }
+                            case 2:
+                            {
+                                jugaremos.dispararR(getPosiciony(), getPosicionx(),1);
+                                break;
+                            }
+                            case 3:
+                            {
+                                jugaremos.dispararD(getPosiciony(), getPosicionx(),1);
+                                break;
+                            }
+                            default:
+                                System.out.println("no");
+                        }
+                        try
+                        {
+                            Thread.sleep(500);
+                        }
+                        catch(InterruptedException exception)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                        jugaremos.disparoEnemigos();
+                    } else
+                    {
+                        mostrarAciones("Has fallado el disparo");
+                        try
+                        {
+                            Thread.sleep(500);
+                        }
+                        catch(InterruptedException exception)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                        jugaremos.disparoEnemigos();
+                    }
+                } else
+                {
+                    mostrarAciones("Dada tu suerte, te mueves "+alea.nextInt(6)+1);
+                }
             }
         });
 
@@ -277,6 +352,11 @@ public class CampoDeBatalla extends JFrame {
                 if(getUtilizando()<2){
                     ImageIcon imagen = seleccionados[getUtilizando()+1].getTheImagen();
                     escenario1[getPosiciony()][getPosicionx()].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(getAncho()-5,getAncho()-5,Image.SCALE_REPLICATE)));
+                    escenario1[getPosiciony()][getPosicionx()].setVehiculo(seleccionados[getUtilizando()+1]);
+                    vehS.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(60,60,Image.SCALE_REPLICATE)));
+                    quitarMarcas();
+                    String lo1 = "<html><body>"+seleccionados[getUtilizando()+1].getNombre()+"</body></html>";
+                    vehS.setToolTipText(lo1);
                     mostrarAciones("Cambiaste a "+seleccionados[getUtilizando()+1].getNombre());
                     hp.setText(seleccionados[getUtilizando()+1].getHp()+"");
                     pp.setText(seleccionados[getUtilizando()+1].getAtack()+"");
@@ -307,6 +387,11 @@ public class CampoDeBatalla extends JFrame {
                 if(getUtilizando()>0){
                     ImageIcon imagen = seleccionados[getUtilizando()-1].getTheImagen();
                     escenario1[getPosiciony()][getPosicionx()].setIcon(new ImageIcon(imagen.getImage().getScaledInstance(getAncho()-5,getAncho()-5,Image.SCALE_REPLICATE)));
+                    escenario1[getPosiciony()][getPosicionx()].setVehiculo(seleccionados[getUtilizando()-1]);
+                    vehS.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(60,60,Image.SCALE_REPLICATE)));
+                    quitarMarcas();
+                    String lo1 = "<html><body>"+seleccionados[getUtilizando()-1].getNombre()+"</body></html>";
+                    vehS.setToolTipText(lo1);
                     mostrarAciones("Cambiaste a "+seleccionados[getUtilizando()-1].getNombre());
                     hp.setText(seleccionados[getUtilizando()-1].getHp()+"");
                     pp.setText(seleccionados[getUtilizando()-1].getAtack()+"");
@@ -335,11 +420,9 @@ public class CampoDeBatalla extends JFrame {
     }
 
     /**
-     * Metodo encargado de ver todo lo correspondiente a los tableros
+     * Metodo encargado de ver lo correspondiente a los tableros
      */
     public void iniciarEscenarios(){
-        Random aleatorio = new Random(System.nanoTime());
-
         int posicionInicialX;
         int posicionInicialY;
         int objetos, enemigos;
@@ -375,7 +458,7 @@ public class CampoDeBatalla extends JFrame {
                 setCuantoX(8);
                 setCuantoY(9);
                 objetos = 24;
-                enemigos = 6;
+                enemigos = 4;
                 posicionInicialX = 100;
                 posicionInicialY = 10;
                 escenario1 =new Casilla[getCuantoY()][getCuantoX()];
@@ -393,11 +476,7 @@ public class CampoDeBatalla extends JFrame {
                 break;
             }
         }
-        ImageIcon enemigo1 = new ImageIcon("src/fts/enemigo5.gif");
-        ImageIcon enemigo2 = new ImageIcon("src/fts/enemigo2.gif");
-        ImageIcon enemigo3 = new ImageIcon("src/fts/enemigo4.gif");
-        ImageIcon montania2 = new ImageIcon("src/fts/arbol.png");
-        ImageIcon agua1 = new ImageIcon("src/fts/aguaredimension.gif");
+
         for (int u = 0; u<getCuantoY();u++)
             for (int p = 0; p<getCuantoX();p++){
                 escenario1[u][p] = new TerrenoLibre((posicionInicialX+(ancho*p)),(posicionInicialY+(ancho*u)),ancho,p,u, this);
@@ -412,13 +491,11 @@ public class CampoDeBatalla extends JFrame {
             if (escenario1[es][es1].getTieneAlgo()==0){
                 int esmontana = queSera1.nextInt(2);
                 if (esmontana==0){
-                    escenario1[es][es1].setIcon(new ImageIcon(montania2.getImage().getScaledInstance((ancho-5),(ancho-5),Image.SCALE_REPLICATE)));
-                    escenario1[es][es1].setTieneAlgo(1);
-                    escenario1[es][es1].setQueSera(0);
+                    escenario1[es][es1].inicializarObjetos(2);
+                    escenario1[es][es1].setToolTipText("HP: "+escenario1[es][es1].montania.getPrueba());
 
                 } else if (esmontana==1){
-                    //escenario1[es][es1].setIcon(new ImageIcon(agua1.getImage().getScaledInstance((ancho-5),(ancho-5),Image.SCALE_REPLICATE)));
-                    escenario1[es][es1].inicializarAgua();
+                    escenario1[es][es1].inicializarObjetos(1);
                 }
                 intentos++;
             }
@@ -430,20 +507,8 @@ public class CampoDeBatalla extends JFrame {
                 int fue = queSera1.nextInt(cuantoY);
                 int fue1 = queSera1.nextInt(cuantoX) + 1 - 1;
                 if (escenario1[fue][fue1].getTieneAlgo() == 0) {
-                    int queEnemigo = queSera1.nextInt(3);
-                    if (queEnemigo == 0) {
-                        escenario1[fue][fue1].setIcon(new ImageIcon(enemigo1.getImage().getScaledInstance((ancho-5),(ancho-5),Image.SCALE_REPLICATE)));
-                        escenario1[fue][fue1].setTieneAlgo(1);
-                        escenario1[fue][fue1].setQueSera(2);
-                    } else if (queEnemigo == 1) {
-                        escenario1[fue][fue1].setIcon(new ImageIcon(enemigo2.getImage().getScaledInstance((ancho-5),(ancho-5),Image.SCALE_REPLICATE)));
-                        escenario1[fue][fue1].setTieneAlgo(1);
-                        escenario1[fue][fue1].setQueSera(2);
-                    } else {
-                        escenario1[fue][fue1].setIcon(new ImageIcon(enemigo3.getImage().getScaledInstance((ancho-5), (ancho-5), Image.SCALE_REPLICATE)));
-                        escenario1[fue][fue1].setTieneAlgo(1);
-                        escenario1[fue][fue1].setQueSera(2);
-                    }
+                    escenario1[fue][fue1].iniciarEnemigo();
+                    escenario1[fue][fue1].setToolTipText("HP: "+escenario1[fue][fue1].enemigos.getHp());
                     intentos++;
                 }
             }
@@ -546,7 +611,7 @@ public class CampoDeBatalla extends JFrame {
     }
     public void pintarCaminos(boolean disparo){
         boolean sobreLasAguas;
-        if (escenario1[getPosiciony()][getPosicionx()].getTanque()!=null){
+        if (escenario1[getPosiciony()][getPosicionx()].tanque!=null){
             sobreLasAguas = false;
         } else {
             sobreLasAguas = true;
@@ -558,7 +623,7 @@ public class CampoDeBatalla extends JFrame {
     }
     public void pintarCamino1(int y,int x, boolean disparo, boolean sobreLasAguas){
         if (y>0){
-            if(escenario1[y-1][x].getTieneAlgo()!=1){
+            if(escenario1[y-1][x].getTieneAlgo()==0){
                 pintarCasilla(y-1,x,0);
                 pintarCamino1(y-1,x, disparo, sobreLasAguas);
             } else {
@@ -582,7 +647,7 @@ public class CampoDeBatalla extends JFrame {
     }
     public void pintarCamino2(int y,int x, boolean disparo, boolean sobreLasAguas) {
         if (y<cuantoY-1){
-            if(escenario1[y+1][x].getTieneAlgo()!=1){
+            if(escenario1[y+1][x].getTieneAlgo()==0){
                 pintarCasilla(y+1,x,0);
                 pintarCamino2(y+1,x, disparo, sobreLasAguas);
             } else {
@@ -606,7 +671,7 @@ public class CampoDeBatalla extends JFrame {
     }
     public void pintarCamino3(int y, int x, boolean disparo, boolean sobreLasAguas){
         if (x>0){
-            if(escenario1[y][x-1].getTieneAlgo()!=1){
+            if(escenario1[y][x-1].getTieneAlgo()==0){
                 pintarCasilla(y,x-1,0);
                 pintarCamino3(y,x-1, disparo,sobreLasAguas);
             } else {
@@ -631,18 +696,20 @@ public class CampoDeBatalla extends JFrame {
     }
     public void pintarCamino4(int y, int x, boolean disparo, boolean sobreLasAguas){
         if (x<cuantoX-1){
-            if(escenario1[y][x+1].getTieneAlgo()!=1){
+            if(escenario1[y][x+1].getTieneAlgo()==0){
                 pintarCasilla(y, x+1,0);
                 pintarCamino4(y,x+1, disparo,sobreLasAguas);
             } else {
                 if (disparo){
-                    if (escenario1[y][x+1].getAgua()!=null)
+                    if (escenario1[y][x+1].montania!=null || escenario1[y][x+1].enemigos!=null)
                     {
+                        pintarCasilla(y, x+1,1);
+                    }
+                    else{
                         pintarCasilla(y,x+1,0);
                         pintarCamino4(y,x+1,disparo,sobreLasAguas);
                     }
-                    else
-                        pintarCasilla(y, x+1,1);
+
                 } else
                     if (sobreLasAguas && escenario1[y][x+1].getAgua()!=null)
                     {
@@ -702,5 +769,21 @@ public class CampoDeBatalla extends JFrame {
 
     public void setAncho(int ancho) {
         this.ancho = ancho;
+    }
+
+    public boolean isDisparo() {
+        return disparo;
+    }
+
+    public void setDisparo(boolean disparo) {
+        this.disparo = disparo;
+    }
+
+    public int getDirec() {
+        return direc;
+    }
+
+    public void setDirec(int direc) {
+        this.direc = direc;
     }
 }
