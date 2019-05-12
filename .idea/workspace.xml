@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c0902f37-a80b-4c79-9b99-1d6a16bdce3b" name="Default Changelist" comment="Inicio de jugabilidad por modalidad, uno versus uno y uno versus la computadora">
-      <change afterPath="$PROJECT_DIR$/src/Enemigos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Jugar.java" afterDir="false" />
+    <list default="true" id="c0902f37-a80b-4c79-9b99-1d6a16bdce3b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agua.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agua.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CampoDeBatalla.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CampoDeBatalla.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Casilla.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Casilla.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FondoWWI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FondoWWI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Montania.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Montania.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Objetos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objetos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PartidaPersonalizada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PartidaPersonalizada.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,10 +16,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CampoDeBatalla.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="119">
               <caret line="460" column="28" selection-start-line="460" selection-start-column="28" selection-end-line="460" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -78,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/src/Casilla.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="143" column="27" lean-forward="true" selection-start-line="143" selection-start-column="27" selection-end-line="143" selection-end-column="27" />
+              <caret line="143" column="27" selection-start-line="143" selection-start-column="27" selection-end-line="143" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Jugar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="124" column="81" selection-start-line="124" selection-start-column="81" selection-end-line="124" selection-end-column="81" />
+            <state relative-caret-position="175">
+              <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1385#1386#0" expanded="true" />
@@ -237,7 +228,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557642743041" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557642944104" />
     <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
@@ -309,12 +300,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557568380123</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Mecanica de disparo en modalidad uno vs COM">
+      <created>1557642905467</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1557642905468</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49863762" weight="0.22087745" />
       <window_info id="Structure" order="1" sideWeight="0.5013624" side_tool="true" weight="0.25340393" />
@@ -326,13 +323,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3927987" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3927987" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
@@ -372,12 +369,23 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Opciones para agregar a la partida" />
     <MESSAGE value="Cambio de montañas por arboles, y mejoras." />
     <MESSAGE value="Pantalla de personalización de la partida terminada, clase Persona creada, y comienzo de menu de jugar." />
     <MESSAGE value="Inicio de jugabilidad por modalidad, uno versus uno y uno versus la computadora" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inicio de jugabilidad por modalidad, uno versus uno y uno versus la computadora" />
+    <MESSAGE value="Mecanica de disparo en modalidad uno vs COM" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mecanica de disparo en modalidad uno vs COM" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -645,40 +653,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CampoDeBatalla.java">
+    <entry file="file://$PROJECT_DIR$/src/Casilla.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="460" column="28" selection-start-line="460" selection-start-column="28" selection-end-line="460" selection-end-column="28" />
+        <state relative-caret-position="272">
+          <caret line="143" column="27" selection-start-line="143" selection-start-column="27" selection-end-line="143" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#CampoDeBatalla#0" />
-            <element signature="method#actionPerformed#0;class#5863:6105" />
-            <element signature="e#21563#21564#0" expanded="true" />
-            <element signature="e#21820#21821#0" expanded="true" />
-            <element signature="e#21992#21993#0" expanded="true" />
-            <element signature="e#22080#22081#0" expanded="true" />
-            <element signature="e#22140#22141#0" expanded="true" />
-            <element signature="e#22220#22221#0" expanded="true" />
-            <element signature="e#22280#22281#0" expanded="true" />
-            <element signature="e#22360#22361#0" expanded="true" />
-            <element signature="e#22426#22427#0" expanded="true" />
-            <element signature="e#22504#22505#0" expanded="true" />
-            <element signature="e#22566#22567#0" expanded="true" />
-            <element signature="e#22651#22652#0" expanded="true" />
-            <element signature="e#28109#28110#0" expanded="true" />
-            <element signature="e#28201#28202#0" expanded="true" />
-            <element signature="e#28267#28268#0" expanded="true" />
-            <element signature="e#28360#28361#0" expanded="true" />
-            <element signature="e#28417#28418#0" expanded="true" />
-            <element signature="e#28490#28491#0" expanded="true" />
-            <element signature="e#26104#26105#0" expanded="true" />
-            <element signature="e#26134#26135#0" expanded="true" />
-            <element signature="e#26181#26182#0" expanded="true" />
-            <element signature="e#26219#26220#0" expanded="true" />
-            <element signature="e#26306#26307#0" expanded="true" />
-            <element signature="e#26334#26335#0" expanded="true" />
-            <element signature="e#26373#26374#0" expanded="true" />
-            <element signature="e#26407#26408#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Jugar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1385#1386#0" expanded="true" />
+            <element signature="e#1463#1464#0" expanded="true" />
+            <element signature="method#dispararA#1;class#Jugar#0" />
+            <element signature="e#8039#8260#1" />
           </folding>
         </state>
       </provider>
@@ -723,26 +717,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Casilla.java">
+    <entry file="file://$PROJECT_DIR$/src/CampoDeBatalla.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="143" column="27" lean-forward="true" selection-start-line="143" selection-start-column="27" selection-end-line="143" selection-end-column="27" />
+        <state relative-caret-position="119">
+          <caret line="460" column="28" selection-start-line="460" selection-start-column="28" selection-end-line="460" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Jugar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="124" column="81" selection-start-line="124" selection-start-column="81" selection-end-line="124" selection-end-column="81" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1385#1386#0" expanded="true" />
-            <element signature="e#1463#1464#0" expanded="true" />
-            <element signature="method#dispararA#1;class#Jugar#0" />
-            <element signature="e#8039#8260#1" />
+            <element signature="docComment;class#CampoDeBatalla#0" />
+            <element signature="method#actionPerformed#0;class#5863:6105" />
+            <element signature="e#21563#21564#0" expanded="true" />
+            <element signature="e#21820#21821#0" expanded="true" />
+            <element signature="e#21992#21993#0" expanded="true" />
+            <element signature="e#22080#22081#0" expanded="true" />
+            <element signature="e#22140#22141#0" expanded="true" />
+            <element signature="e#22220#22221#0" expanded="true" />
+            <element signature="e#22280#22281#0" expanded="true" />
+            <element signature="e#22360#22361#0" expanded="true" />
+            <element signature="e#22426#22427#0" expanded="true" />
+            <element signature="e#22504#22505#0" expanded="true" />
+            <element signature="e#22566#22567#0" expanded="true" />
+            <element signature="e#22651#22652#0" expanded="true" />
+            <element signature="e#28109#28110#0" expanded="true" />
+            <element signature="e#28201#28202#0" expanded="true" />
+            <element signature="e#28267#28268#0" expanded="true" />
+            <element signature="e#28360#28361#0" expanded="true" />
+            <element signature="e#28417#28418#0" expanded="true" />
+            <element signature="e#28490#28491#0" expanded="true" />
+            <element signature="e#26104#26105#0" expanded="true" />
+            <element signature="e#26134#26135#0" expanded="true" />
+            <element signature="e#26181#26182#0" expanded="true" />
+            <element signature="e#26219#26220#0" expanded="true" />
+            <element signature="e#26306#26307#0" expanded="true" />
+            <element signature="e#26334#26335#0" expanded="true" />
+            <element signature="e#26373#26374#0" expanded="true" />
+            <element signature="e#26407#26408#0" expanded="true" />
           </folding>
         </state>
       </provider>
