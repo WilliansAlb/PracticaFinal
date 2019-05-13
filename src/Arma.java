@@ -1,14 +1,37 @@
 import javax.swing.*;
 
+/**
+ * Clase encargada de guardar las armas
+ */
 public class Arma {
+    /**
+     * Guarda la imagen que se usara en el boton
+     */
     private ImageIcon theImagen;
+    /**
+     * Guarda el nombre del arma
+     */
     private String nombre;
+    /**
+     * Sirven para saber si el arma fue elegida o no
+     */
     private boolean elegido, selec;
+    /**
+     * Sirven para saber el ataque y la precision del arma
+     */
     private int ataque, precision;
 
+    /**
+     * Metodo constructor
+     */
     public Arma() {
     }
 
+    /**
+     * Retorna la imagen que se le pida
+     * @param i para saber que imagen retornara
+     * @return ImageIcon
+     */
     ImageIcon getImagen(int i) {
         switch (i){
             case 0:
@@ -46,10 +69,19 @@ public class Arma {
                 return null;
         }
     }
+
+    /**
+     * Agrega la imagen a la variable
+     * @param imagen para agregar la imagen
+     */
     public void agregarImagen(String imagen){
         setTheImagen(new ImageIcon(imagen));
     }
 
+    /**
+     * Retorna la imagen seleccionada
+     * @return theImagen
+     */
     public ImageIcon getTheImagen() {
         return theImagen;
     }
