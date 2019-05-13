@@ -8,6 +8,7 @@ public class Jugar {
     CampoDeBatalla base;
     int ataque = 45;
     private int turnos=1;
+    private boolean inicio;
 
     public Jugar(Vehiculos[] seleccionados, Arma[] seleccionadas, CampoDeBatalla base) {
         this.seleccionados = seleccionados;
@@ -19,10 +20,21 @@ public class Jugar {
         base.mostrarAciones("Turno "+getTurnos());
         Random alea = new Random(System.nanoTime());
 
-        if (alea.nextInt(2)==0)
-        {
-            base.mostrarAciones("Inicia "+base.jugador.getNombre());
+        if (turnos==1){
+            if (alea.nextInt(2)==0){
+                setInicio(true);
+            } else {
+                setInicio(false);
+            }
+        }
 
+        if (isInicio())
+        {
+            if(turnos==1){
+                base.mostrarAciones("Inicia "+base.jugador.getNombre());
+            } else {
+                base.mostrarAciones("Te toca "+base.jugador.getNombre());
+            }
         }
         else
         {
@@ -44,6 +56,12 @@ public class Jugar {
             base.dados.setEnabled(true);
         }
         turnos++;
+    }
+    public void continuarTurnos(){
+        if (isInicio())
+        {
+
+        }
     }
 
     public int getTurnos() {
@@ -71,6 +89,10 @@ public class Jugar {
                     }
                 }
             }
+        if(!isInicio()){
+            turnos++;
+            base.mostrarAciones("Te toca "+base.jugador.getNombre());
+        }
     }
     public void disparar(int y, int x, int direc, int a){
 
@@ -364,5 +386,13 @@ public class Jugar {
         }
         else
             base.mostrarAciones("Alguien idiota le dio a la nada");
+    }
+
+    public boolean isInicio() {
+        return inicio;
+    }
+
+    public void setInicio(boolean inicio) {
+        this.inicio = inicio;
     }
 }

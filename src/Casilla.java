@@ -9,15 +9,14 @@ public abstract class Casilla extends JButton implements ActionListener {
     private int posicionY;
     private int alto;
     private int x, y;
-    private boolean click = true;
+    private boolean click = false;
     int tieneAlgo = 0;
     int queSera;
     private ImageIcon imagen1;
     CampoDeBatalla campo;
     protected Objetos agua;
     protected Objetos montania;
-    protected Vehiculos avion;
-    protected Vehiculos tanque;
+    protected Vehiculos avion,tanque,boot;
     protected Vehiculos enemigos;
 
     public Casilla(int x, int y, int alto, int posicionX, int posicionY, CampoDeBatalla campo){
@@ -43,6 +42,13 @@ public abstract class Casilla extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (isClick() && agua==null){
+            boot = new Boot();
+            setIcon(new ImageIcon(boot.getTheImagen().getImage().getScaledInstance(getAlto()-5, getAlto()-5, Image.SCALE_REPLICATE)));
+            campo.cancelarBoot();
+            setTieneAlgo(1);
+            setQueSera(5);
+        }
     }
 
     public int getQueSera() {
@@ -153,5 +159,13 @@ public abstract class Casilla extends JButton implements ActionListener {
             setTieneAlgo(0);
             setQueSera(0);
         }
+    }
+
+    public boolean isClick() {
+        return click;
+    }
+
+    public void setClick(boolean click) {
+        this.click = click;
     }
 }

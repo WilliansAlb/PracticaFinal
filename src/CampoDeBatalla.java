@@ -34,7 +34,7 @@ public class CampoDeBatalla extends JFrame {
     /**
      * Botones para mover, disparar, tirar dados, seleccionar otro auto, anterior o siguiente
      */
-    JButton mover, disparar, dados, sig, ant, u, d, l, r;
+    JButton mover, disparar, dados, sig, ant, u, d, l, r, boot;
     /**
      * Matriz para crear el tablero de juego
      */
@@ -99,6 +99,7 @@ public class CampoDeBatalla extends JFrame {
         iniciarRPG();
         iniciarBotones();
         iniciarEscenarios();
+        iniciarBoot();
         jugaremos = new Jugar(seleccionados,seleccionadas,this);
     }
     /**
@@ -317,27 +318,10 @@ public class CampoDeBatalla extends JFrame {
                             default:
                                 System.out.println("no");
                         }
-                        try
-                        {
-                            Thread.sleep(500);
-                        }
-                        catch(InterruptedException exception)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
                         jugaremos.disparoEnemigos();
                     } else
                     {
                         mostrarAciones("Has fallado el disparo");
-                        try
-                        {
-                            Thread.sleep(500);
-                        }
-                        catch(InterruptedException exception)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
-                        jugaremos.disparoEnemigos();
                     }
                 } else
                 {
@@ -417,6 +401,38 @@ public class CampoDeBatalla extends JFrame {
                 }
             }
         });
+    }
+
+    public void iniciarBoot(){
+        JLabel cuantosBoots = new JLabel();
+        cuantosBoots.setText(jugador.getBootsComprados()+"");
+        cuantosBoots.setBounds(252,600,32,20);
+        cuantosBoots.setOpaque(false);
+        cuantosBoots.setForeground(yellow);
+        fondito.add(cuantosBoots);
+
+        boot = new JButton();
+        boot.setBounds(240,600,32,20);
+        boot.setContentAreaFilled(false);
+        fondito.add(boot);
+
+        boot.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jugador.getBootsComprados()!=0){
+                    ImageIcon vault = new ImageIcon("src/fts/desacuerdo.png");
+                    JOptionPane.showMessageDialog(null,"No tienes ningún boot comprado, pobre","Falta de dinero",JOptionPane.INFORMATION_MESSAGE,vault);
+                } else {
+                    for (int i = 0; i<cuantoY; i++){
+                        for (int u = 0; u<cuantoX; u++)
+                        {
+                            escenario1[i][u].setClick(true);
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     /**
@@ -786,5 +802,14 @@ public class CampoDeBatalla extends JFrame {
 
     public void setDirec(int direc) {
         this.direc = direc;
+    }
+
+    public void cancelarBoot(){
+        for (int i = 0; i<cuantoY; i++){
+            for (int u = 0; u<cuantoX; u++)
+            {
+                escenario1[i][u].setClick(false);
+            }
+        }
     }
 }
