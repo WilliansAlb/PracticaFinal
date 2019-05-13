@@ -119,11 +119,11 @@ public class CampoDeBatalla extends JFrame {
         tabla.setShowGrid(false);
         tabla.setShowHorizontalLines(false);
         tabla.setShowVerticalLines(false);
-        tabla.setRowHeight(10);
+        tabla.setRowHeight(9);
 
         ((DefaultTableCellRenderer) tabla.getDefaultRenderer(Object.class)).setOpaque(false);
         ((DefaultTableCellRenderer) tabla.getDefaultRenderer(Object.class)).setSize(73,5);
-        tabla.setFont(new Font("Lucida Fax", Font.PLAIN, 9));
+        tabla.setFont(new Font("Lucida Fax", Font.PLAIN, 8));
         tabla.setForeground(lightGray);
         fondito.add(tabla);
     }
@@ -744,10 +744,11 @@ public class CampoDeBatalla extends JFrame {
     }
     public void mostrarAciones(String mensaje){
         Object[] nuevo = {mensaje};
-        getDtm().addRow(nuevo);
+        //getDtm().addRow(nuevo);
+        getDtm().insertRow(0,nuevo);
         setContador(1);
-        if (getContador()>6){
-            getDtm().removeRow(0);
+        if (getContador()>8){
+            getDtm().removeRow(8);
         }
     }
     public void setPosicion2x(int posicion2x) {

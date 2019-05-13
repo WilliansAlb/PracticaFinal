@@ -9,7 +9,7 @@ public class AgregarVeh {
     private int leght, leghtA;
 
     /**
-     * Metodo constructor que hacer a la raiz = null
+     * Metodo constructor que hacer a la raiz, null
      */
     public AgregarVeh(){
         raiz = null;
@@ -57,7 +57,7 @@ public class AgregarVeh {
     /**
      * Metodo que retorna el vehiculo que se está buscando por medio del numero de Reconocimiento
      * @param numeroRec para lograr encontrar el vehiculo
-     * @return nuevo o nuevo1
+     * @return nuevo
      */
     public Vehiculos buscarNodo(int numeroRec){
         NodoVeh barrer;
