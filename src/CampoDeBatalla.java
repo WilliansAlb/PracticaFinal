@@ -318,7 +318,10 @@ public class CampoDeBatalla extends JFrame {
                             default:
                                 System.out.println("no");
                         }
-                        jugaremos.disparoEnemigos();
+                        if (jugaremos.isInicio()){
+                            jugaremos.disparoBoot();
+                            jugaremos.disparoEnemigos();
+                        }
                     } else
                     {
                         mostrarAciones("Has fallado el disparo");

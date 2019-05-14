@@ -90,7 +90,6 @@ public class Jugar {
                 }
             }
         if(!isInicio()){
-            turnos++;
             base.mostrarAciones("Te toca "+base.jugador.getNombre());
         }
     }
@@ -394,5 +393,117 @@ public class Jugar {
 
     public void setInicio(boolean inicio) {
         this.inicio = inicio;
+    }
+    public void disparoBoot(){
+        for (int i = 0; i < base.getCuantoY(); i++)
+            for (int u = 0; u < base.getCuantoX(); u++)
+            {
+                if (base.escenario1[i][u].boot!=null)
+                {
+                    Random nuevoA = new Random(System.nanoTime());
+                    if(nuevoA.nextInt(101)<85)
+                    {
+                        disparoBoot1(i,u);
+                    } else
+                    {
+                        System.out.println("disparo "+i+u);
+                        base.mostrarAciones(base.escenario1[i][u].enemigos.getNombre()+" fallo");
+                    }
+                }
+            }
+    }
+    public void disparoBoot1(int y, int x){
+        for (int p=1; p<3; p++)
+        {
+            for (int q =1; q<3; q++){
+                try{
+                    if(q<base.getCuantoX() && p<base.getCuantoY()){
+                        if(base.escenario1[y+p][x+q].tieneAlgo==1 && base.escenario1[y+p][x+q].agua==null && base.escenario1[y+p][x+q].getVehiculo()==null)
+                        {
+                            if (base.escenario1[y+p][x+q].montania!=null)
+                            {
+                                base.escenario1[y+p][x+q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                            if (base.escenario1[y+p][x+q].enemigos!=null){
+                                base.escenario1[y+p][x+q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                        }
+                    }
+                } catch (Exception e){
+
+                }
+            }
+        }
+        for (int p=1; p<3; p++)
+        {
+            for (int q =1; q<3; q++){
+                try{
+                    if(q<base.getCuantoX() && p<base.getCuantoY()){
+                        if(base.escenario1[y-p][x-q].tieneAlgo==1 && base.escenario1[y-p][x-q].agua==null && base.escenario1[y-p][x-q].getVehiculo()==null)
+                        {
+                            if (base.escenario1[y-p][x-q].montania!=null)
+                            {
+                                base.escenario1[y-p][x-q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                            if (base.escenario1[y-p][x-q].enemigos!=null){
+                                base.escenario1[y-p][x-q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                        }
+                    }
+                } catch (Exception e){
+
+                }
+            }
+        }
+        for (int p=1; p<3; p++)
+        {
+            for (int q =1; q<3; q++){
+                try{
+                    if(q<base.getCuantoX() && p<base.getCuantoY()){
+                        if(base.escenario1[y-p][x+q].tieneAlgo==1 && base.escenario1[y-p][x+q].agua==null && base.escenario1[y-p][x+q].getVehiculo()==null)
+                        {
+                            if (base.escenario1[y-p][x+q].montania!=null)
+                            {
+                                base.escenario1[y-p][x+q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                            if (base.escenario1[y-p][x+q].enemigos!=null){
+                                base.escenario1[y-p][x+q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                        }
+                    }
+                } catch (Exception e){
+
+                }
+            }
+        }
+        for (int p=1; p<3; p++)
+        {
+            for (int q =1; q<3; q++){
+                try{
+                    if(q<base.getCuantoX() && p<base.getCuantoY()){
+                        if(base.escenario1[y+p][x-q].tieneAlgo==1 && base.escenario1[y+p][x-q].agua==null && base.escenario1[y+p][x-q].getVehiculo()==null)
+                        {
+                            if (base.escenario1[y+p][x-q].montania!=null)
+                            {
+                                base.escenario1[y+p][x-q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                            if (base.escenario1[y+p][x-q].enemigos!=null){
+                                base.escenario1[y+p][x-q].montania.setPrueba(-15);
+                                base.mostrarAciones("Boot le pegó a una montaña");
+                            }
+                        }
+                    }
+                } catch (Exception e){
+
+                }
+            }
+        }
     }
 }
