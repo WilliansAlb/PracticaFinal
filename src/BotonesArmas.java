@@ -9,6 +9,8 @@ public class BotonesArmas extends JButton implements ActionListener {
     private boolean click;
     private boolean seleccionado;
     private int numRec;
+    Jugador jugando;
+    Tienda tienda1;
 
 
     public BotonesArmas(PartidaPersonalizada nueva2) {
@@ -22,47 +24,79 @@ public class BotonesArmas extends JButton implements ActionListener {
         click = false;
         addActionListener(this::actionPerformed);
     }
+    public BotonesArmas(Tienda tienda1, Jugador jugando){
+        this.jugando = jugando;
+        this.tienda1 = tienda1;
+        click = false;
+        addActionListener(this::actionPerformed);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (nueva2!=null)
-        {
+        if (tienda1==null){
+            if (nueva2!=null)
+            {
+                if (!isClick())
+                {
+                    if (nueva2.getSeleccionA()<3){
+                        nueva2.setSeleccionA(1);
+                        setClick(true);
+                        setContentAreaFilled(true);
+                        setBackground(Color.yellow);
+                        setSeleccionado(true);
+                    }
+                } else
+                {
+                    nueva2.setSeleccionA(-1);
+                    setClick(false);
+                    setContentAreaFilled(false);
+                    setSeleccionado(false);
+                }
+            }
+            else {
+                if (!isClick())
+                {
+                    if (nuevo2.getSeleccionA()<3){
+                        nuevo2.setSeleccionA(1);
+                        setClick(true);
+                        setContentAreaFilled(true);
+                        setBackground(Color.yellow);
+                        setSeleccionado(true);
+                    }
+                } else
+                {
+                    nuevo2.setSeleccionA(-1);
+                    setClick(false);
+                    setContentAreaFilled(false);
+                    setSeleccionado(false);
+                }
+            }
+        } else {
             if (!isClick())
             {
-                if (nueva2.getSeleccionA()<3){
-                    nueva2.setSeleccionA(1);
-                    setClick(true);
-                    setContentAreaFilled(true);
-                    setBackground(Color.yellow);
-                    setSeleccionado(true);
+                if (jugando.getDinero()>0){
+                    if ((jugando.getDinero()-35)<0){
+                        ImageIcon vault = new ImageIcon("src/fts/desacuerdo.png");
+                        JOptionPane.showMessageDialog(null,"No tienes tanto dinero para comprar el arma","Falta de dinero",JOptionPane.INFORMATION_MESSAGE,vault);
+                    } else {
+                        jugando.setDinero(-35);
+                        tienda1.dinero.setText(""+jugando.getDinero());
+                        setClick(true);
+                        setContentAreaFilled(true);
+                        setBackground(Color.yellow);
+                        setSeleccionado(true);
+                    }
                 }
-            } else
-            {
-                nueva2.setSeleccionA(-1);
-                setClick(false);
-                setContentAreaFilled(false);
-                setSeleccionado(false);
-            }
-        }
-        else {
-            if (!isClick())
-            {
-                if (nuevo2.getSeleccionA()<3){
-                    nuevo2.setSeleccionA(1);
-                    setClick(true);
-                    setContentAreaFilled(true);
-                    setBackground(Color.yellow);
-                    setSeleccionado(true);
-                }
-            } else
-            {
-                nuevo2.setSeleccionA(-1);
-                setClick(false);
-                setContentAreaFilled(false);
-                setSeleccionado(false);
-            }
-        }
 
+            } else
+            {
+                jugando.setDinero(+35);
+                tienda1.dinero.setText(""+jugando.getDinero());
+                setClick(false);
+                setContentAreaFilled(false);
+                setSeleccionado(false);
+            }
+        }
     }
 
     public boolean isClick() {

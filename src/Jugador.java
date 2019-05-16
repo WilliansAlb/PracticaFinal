@@ -1,7 +1,7 @@
 public class Jugador {
     private String nombre;
     private AgregarVeh vehiculo, armas;
-    private int dinero, vehiculosComprados, bootsComprados = 0;
+    private int dinero=200, vehiculosComprados, bootsComprados = 0;
 
     public Jugador(){
         vehiculo = new AgregarVeh();
@@ -37,7 +37,7 @@ public class Jugador {
     }
 
     public void setDinero(int dinero) {
-        this.dinero = dinero;
+        this.dinero += dinero;
     }
 
     public int getVehiculosComprados() {
@@ -53,6 +53,6 @@ public class Jugador {
     }
 
     public void setBootsComprados(int bootsComprados) {
-        this.bootsComprados = bootsComprados;
+        this.bootsComprados += bootsComprados;
     }
 }

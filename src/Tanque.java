@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Tanque extends Vehiculos {
     private ImageIcon theImagen;
-    private int numRec, hp, atack;
+    private int numRec, hp, atack, eliminados;
     private boolean elegido, selec;
     private String nombre;
     public Tanque(){
@@ -81,7 +81,7 @@ public class Tanque extends Vehiculos {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.hp += hp;
     }
 
     public int getAtack() {
@@ -103,5 +103,13 @@ public class Tanque extends Vehiculos {
     @Override
     String getTipo() {
         return "T";
+    }
+
+    public int getEliminados() {
+        return eliminados;
+    }
+
+    public void setEliminados(int eliminados) {
+        this.eliminados += eliminados;
     }
 }

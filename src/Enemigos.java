@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.util.Random;
 
 public class Enemigos extends Vehiculos {
-    private int hp, atack, numRec = 100;
+    private int hp = 80, atack, numRec = 100;
     String nombre, tipo;
     private ImageIcon theImagen;
 
@@ -79,7 +79,7 @@ public class Enemigos extends Vehiculos {
 
     @Override
     void setHp(int hp) {
-
+        this.hp += hp;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Enemigos extends Vehiculos {
 
     @Override
     int getHp() {
-        return 45;
+        return hp;
     }
 
     @Override
@@ -114,5 +114,15 @@ public class Enemigos extends Vehiculos {
 
     public void setTheImagen(ImageIcon theImagen) {
         this.theImagen = theImagen;
+    }
+
+    @Override
+    void setEliminados(int eliminados) {
+        System.out.println("no hace nada");
+    }
+
+    @Override
+    int getEliminados() {
+        return 0;
     }
 }

@@ -53,6 +53,14 @@ public class MenuJugar extends JFrame {
                 setVisible(false);
             }
         });
+        tienda.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tienda comprar = new Tienda(getJugando());
+                comprar.setVisible(true);
+                setVisible(false);
+            }
+        });
 
     }
 

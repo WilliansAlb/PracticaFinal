@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Avion extends Vehiculos {
     private ImageIcon theImagen;
-    private int numRec, hp, atack;
+    private int numRec, hp, atack, eliminados;
     private boolean elegido, selec;
     private String nombre;
 
@@ -86,7 +86,7 @@ public class Avion extends Vehiculos {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.hp += hp;
     }
 
     public int getAtack() {
@@ -108,5 +108,13 @@ public class Avion extends Vehiculos {
     @Override
     String getTipo() {
         return "A";
+    }
+
+    public int getEliminados() {
+        return eliminados;
+    }
+
+    public void setEliminados(int eliminados) {
+        this.eliminados += eliminados;
     }
 }

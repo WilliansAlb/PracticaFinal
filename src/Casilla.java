@@ -48,6 +48,8 @@ public abstract class Casilla extends JButton implements ActionListener {
             campo.cancelarBoot();
             setTieneAlgo(1);
             setQueSera(5);
+            campo.jugador.setBootsComprados(-1);
+            campo.cuantosBoots.setText(""+campo.jugador.getBootsComprados());
         }
     }
 
@@ -146,18 +148,42 @@ public abstract class Casilla extends JButton implements ActionListener {
     {
         ImageIcon tierra = new ImageIcon("src/fts/tierra.jpg");
         ImageIcon tierra1 = new ImageIcon(tierra.getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
-
         if (enemigos!=null)
         {
             enemigos = null;
             setIcon(tierra1);
             setTieneAlgo(0);
             setQueSera(0);
-        } else {
+        }
+        if (montania!=null){
             montania = null;
             setIcon(tierra1);
             setTieneAlgo(0);
             setQueSera(0);
+        }
+        if (boot!= null){
+            boot = null;
+            setIcon(tierra1);
+            setTieneAlgo(0);
+            setQueSera(0);
+        }
+        if (tanque!=null){
+            tanque = null;
+            setIcon(tierra1);
+            setTieneAlgo(0);
+            setQueSera(0);
+        }
+        if (avion!=null){
+            avion = null;
+            if (getQueSera()==1){
+                ImageIcon agua1 = new ImageIcon(agua.getTheImagen().getImage().getScaledInstance(getAlto()-5,getAlto()-5,Image.SCALE_REPLICATE));
+                setIcon(agua1);
+            } else {
+                setIcon(tierra1);
+                setTieneAlgo(0);
+                setQueSera(0);
+            }
+
         }
     }
 
@@ -167,5 +193,9 @@ public abstract class Casilla extends JButton implements ActionListener {
 
     public void setClick(boolean click) {
         this.click = click;
+    }
+
+    public Vehiculos getBoot() {
+        return boot;
     }
 }

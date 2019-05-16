@@ -21,7 +21,7 @@ public class Modalidad extends JFrame {
     private int escena = 0;
     private int seleccionA;
     private boolean modali, nueva1, click;
-    Jugador jugando, jugador1, jugador3;
+    Jugador jugando, jugador3;
     Font pant = new Font("Arcade Normal",Font.BOLD,8);
 
     public Modalidad(Jugador jugando){
@@ -35,9 +35,10 @@ public class Modalidad extends JFrame {
         setResizable(false);
         iniciarComponentes();
     }
-    public Modalidad(boolean modali, int escena, Jugador jugador1)
+    public Modalidad(boolean modali, int escena, Jugador jugador1, Jugador jugando)
     {
-        this.jugador1 = jugador1;
+        this.jugando = jugando;
+        this.jugador3 = jugador1;
         nueva1 = modali;
         this.escena = escena;
         this.modali = false;
@@ -127,20 +128,20 @@ public class Modalidad extends JFrame {
         }
     }
     public void iniciarArmas(){
-        armSelec = new BotonesArmas[agregandoA.getLeghtA()];
+        armSelec = new BotonesArmas[jugando.getArmas().getLeghtA()];
         armas1.setLayout(new GridLayout(3,2));
         int conteo = 0;
-        for (int u = 0; u<agregandoA.getLeghtA(); u++)
+        for (int u = 0; u<jugando.getArmas().getLeghtA(); u++)
         {
-            if (agregandoA.buscarNodoA(u).isElegido()){
+            if (jugando.getArmas().buscarNodoA(u).isElegido()){
                 armSelec[conteo] = new BotonesArmas(this);
-                ImageIcon imagen2 = new ImageIcon(agregandoA.buscarNodoA(u).getTheImagen().getImage().getScaledInstance(100,100,Image.SCALE_REPLICATE));
+                ImageIcon imagen2 = new ImageIcon(jugando.getArmas().buscarNodoA(u).getTheImagen().getImage().getScaledInstance(100,100,Image.SCALE_REPLICATE));
                 armSelec[conteo].setIcon(imagen2);
                 armSelec[conteo].setContentAreaFilled(false);
                 armSelec[conteo].setNumRec(u);
-                String nombre = agregandoA.buscarNodoA(u).getNombre();
-                String hp = "PRECISIÓN: "+agregandoA.buscarNodoA(u).getPrecision()+"%";
-                String pp = "ATAQUE: "+agregandoA.buscarNodoA(u).getAtaque();
+                String nombre = jugando.getArmas().buscarNodoA(u).getNombre();
+                String hp = "PRECISIÓN: "+jugando.getArmas().buscarNodoA(u).getPrecision()+"%";
+                String pp = "ATAQUE: "+jugando.getArmas().buscarNodoA(u).getAtaque();
                 String todo1 = "<html><body>"+nombre+"<br>"+hp+"<br>"+pp+"</body></html>";
                 armSelec[conteo].setToolTipText(todo1);
                 armas1.add(armSelec[conteo]);
@@ -161,6 +162,24 @@ public class Modalidad extends JFrame {
             unoVsUno.setBackground(lightGray);
             unoVsCom.setEnabled(false);
             unoVsUno.setEnabled(true);
+            unoVsCom.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ir.setText("JUGAR");
+                    unoVsCom.setEnabled(false);
+                    unoVsUno.setEnabled(true);
+                    setModali(true);
+                }
+            });
+            unoVsUno.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ir.setText("JUGADOR 2");
+                    unoVsUno.setEnabled(false);
+                    unoVsCom.setEnabled(true);
+                    setModali(false);
+                }
+            });
         }
 
         selec.setLayout(new GridLayout(1,3));
@@ -175,11 +194,9 @@ public class Modalidad extends JFrame {
         regresar.setContentAreaFilled(false);
 
         no = new JButton("Listo");
-        if(escena==0)
-        {
-            selec.add(ir);
-            selec.add(regresar);
-        }
+
+        selec.add(ir);
+        selec.add(regresar);
 
         regresar.addActionListener(new ActionListener() {
             @Override
@@ -202,26 +219,53 @@ public class Modalidad extends JFrame {
                             nuevoJ.setVehiculo(getJugando().getVehiculo());
                             nuevoJ.setArmas(getJugando().getArmas());
 
-                            for (int i = 0; i<getJugando().getVehiculo().getLeght(); i++)
+                            for (int i = 0; i<3; i++)
                             {
                                 if(vehSelec[i].isClick())
                                 {
                                     nuevoJ.getVehiculo().buscarNodo(vehSelec[i].getNumRec()).setSelec(true);
                                 }
                             }
-                            for (int u = 0; u<getJugando().getArmas().getLeghtA();u++)
+                            for (int u = 0; u<3;u++)
                             {
                                 if(armSelec[u].isClick())
                                 {
                                     nuevoJ.getArmas().buscarNodoA(armSelec[u].getNumRec()).setSelec(true);
                                 }
                             }
-                            Modalidad nuevoM = new Modalidad(isModali(),getEscena(), nuevoJ);
+                            Modalidad nuevoM = new Modalidad(isModali(),getEscena(), nuevoJ,getJugando());
                             nuevoM.setVisible(true);
                             setVisible(false);
                         } else {
+                            Jugador nuevoJ = new Jugador();
+                            nuevoJ.setNombre(nombre.getText());
+                            nuevoJ.setVehiculo(getJugando().getVehiculo());
+                            nuevoJ.setArmas(getJugando().getArmas());
+                            try {
+                                for (int i = 0; i<getJugando().getVehiculo().getLeght(); i++)
+                                {
+                                    if(vehSelec[i].isClick())
+                                    {
+                                        nuevoJ.getVehiculo().buscarNodo(vehSelec[i].getNumRec()).setSelec(true);
+                                    }
+                                }
+                            }catch (Exception ex) {
 
+                            }
+                            try {
+                                for (int u = 0; u<getJugando().getArmas().getLeghtA();u++)
+                                {
+                                    if(armSelec[u].isClick())
+                                    {
+                                        nuevoJ.getArmas().buscarNodoA(armSelec[u].getNumRec()).setSelec(true);
+                                    }
+                                }
+                            } catch (Exception ex){
 
+                            }
+                            CampoDeBatalla nuevoM = new CampoDeBatalla(getEscena(),getJugando(),jugador3,nuevoJ,isModali());
+                            nuevoM.setVisible(true);
+                            setVisible(false);
                         }
 
                     } else {
@@ -236,7 +280,6 @@ public class Modalidad extends JFrame {
                                 }
                             }
                         }catch (Exception er){
-                            System.out.println("un error");
                         }
                         try {
                             for (int u = 0; u<getJugando().getArmas().getLeghtA();u++)
@@ -248,7 +291,6 @@ public class Modalidad extends JFrame {
                                 }
                             }
                         }catch (Exception er){
-                            System.out.println("un error");
                         }
 
                         CampoDeBatalla campo = new CampoDeBatalla(getEscena(), getJugando());
@@ -258,24 +300,7 @@ public class Modalidad extends JFrame {
                 }
             }
         });
-        unoVsCom.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ir.setText("JUGAR");
-                unoVsCom.setEnabled(false);
-                unoVsUno.setEnabled(true);
-                setModali(true);
-            }
-        });
-        unoVsUno.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ir.setText("JUGADOR 2");
-                unoVsUno.setEnabled(false);
-                unoVsCom.setEnabled(true);
-                setModali(false);
-            }
-        });
+
     }
     public void iniciarBEscenarios(){
         if (escena==0){

@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class Boot extends Vehiculos {
-    int hp=100, atack=15, turnos=4;
+    int hp=100, atack=15, numRec=4;
     String nombre = "Monito";
 
     public Boot() {
@@ -38,17 +38,17 @@ public class Boot extends Vehiculos {
 
     @Override
     int getNumRec() {
-        return 101;
+        return numRec;
     }
 
     @Override
     void setNumRec(int numRec) {
-
+        this.numRec += numRec;
     }
 
     @Override
     void setHp(int hp) {
-        this.hp = hp;
+        this.hp += hp;
     }
 
     @Override
@@ -79,5 +79,15 @@ public class Boot extends Vehiculos {
     @Override
     String getTipo() {
         return "B";
+    }
+
+    @Override
+    void setEliminados(int eliminados) {
+        System.out.println("no hace nada");
+    }
+
+    @Override
+    int getEliminados() {
+        return 0;
     }
 }
